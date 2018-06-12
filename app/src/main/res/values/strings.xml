@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Go Swap</string>
+    <string name="bt_navi_home">Home</string>
+    <string name="bt_navi_favo">Favorites</string>
+    <string name="bt_navi_msg">Messages</string>
+    <string name="drawer_open">is_opened</string>
+    <string name="drawer_closed">is_closed</string>
+    <string name="drawer_navi_login_msg">Login or SignUp</string>
+
 </resources>

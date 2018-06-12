@@ -68,7 +68,10 @@ ext {
 
             roomLibraryVersion         : '1.1.0',
 
-            roomCompilerLibraryVersion : '1.1.0'
+            roomCompilerLibraryVersion : '1.1.0',
+
+            navigation_bar_view_version: '0.0.6',
+            circleImage                : '2.2.0'
     ]
 
 
