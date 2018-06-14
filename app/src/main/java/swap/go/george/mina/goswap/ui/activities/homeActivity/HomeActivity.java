@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class HomeActivity extends AppCompatActivity
     public void init(){
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_closed);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -125,6 +127,12 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home_toolbar, menu);
+        return true;
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             default:
@@ -132,7 +140,6 @@ public class HomeActivity extends AppCompatActivity
         }
         return true;
     }
-
 
     @Override
     public void onBackPressed() {
