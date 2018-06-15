@@ -29,7 +29,6 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View{
     @BindView(R.id.rv_featured_adds)
     RecyclerView recyclerView;
 
-//    @Inject
     HomeFragmentMVP.Presenter presenter;
 
     private HomeAdapter adapter;
@@ -37,11 +36,8 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        ((App) getActivity().getApplication()).getComponent().injectHomeFragment(this);
         presenter = new HomeFragmentPresenter();
         presenter.setView(this);
-        presenter.loadData();
     }
 
     @Nullable
@@ -57,6 +53,7 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View{
         ButterKnife.bind(this,view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false));
+        presenter.loadData();
     }
 
 

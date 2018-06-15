@@ -8,12 +8,14 @@
     <string name="drawer_navi_login_msg">Login or SignUp</string>
 
 
-   //////
+    //////
     <string name="heading">Heading</string>
     <string name="subheading">SubHeading</string>
     <string name="more_button">MORE</string>
     <string name="card_numbering">1/5</string>
-   /////
+    <string name="view_more_key_header">eeddeedefef</string>
+    <string name="view_more_key_items">eedfqwefdeedefef</string>
+    /////
 
 
 </resources>

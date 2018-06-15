@@ -1,13 +1,14 @@
 
 package swap.go.george.mina.goswap.rest.apiModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class Category {
+public class Category implements Serializable {
 
     private String category;
     private ArrayList<Item> items = null;

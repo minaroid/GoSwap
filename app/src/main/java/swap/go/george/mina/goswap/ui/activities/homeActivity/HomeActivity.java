@@ -1,5 +1,6 @@
 package swap.go.george.mina.goswap.ui.activities.homeActivity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -14,17 +15,20 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import swap.go.george.mina.goswap.R;
+import swap.go.george.mina.goswap.models.HomeRecyclerItems;
+import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivity;
 import swap.go.george.mina.goswap.ui.fragments.chatFragment.ChatFragment;
 import swap.go.george.mina.goswap.ui.fragments.favoritesFragment.FavoritesFragment;
 import swap.go.george.mina.goswap.ui.fragments.homeFragment.HomeFragment;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener ,HomeActivityMVP.View{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -37,6 +41,7 @@ public class HomeActivity extends AppCompatActivity
     private ActionBarDrawerToggle toggle;
     private FragmentManager fragmentManager;
     private String[] fragments;
+    private Menu menu ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +133,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_home_toolbar, menu);
         return true;
     }
@@ -148,7 +154,17 @@ public class HomeActivity extends AppCompatActivity
             drawerLayout.closeDrawer(GravityCompat.START);
         }
         else{
-        super.onBackPressed();
+
+        finish();
+
         }
+    }
+
+    @Override
+    public void openListActivity(HomeRecyclerItems c) {
+        Intent i = new Intent(this, ListActivity.class);
+        i.putExtra("items",c.getItems());
+        i.putExtra("header",c.getHeader());
+        startActivity(i);
     }
 }

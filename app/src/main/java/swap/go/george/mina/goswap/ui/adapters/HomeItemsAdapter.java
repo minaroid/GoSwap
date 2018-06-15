@@ -3,29 +3,17 @@ package swap.go.george.mina.goswap.ui.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
-
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import swap.go.george.mina.goswap.R;
-import swap.go.george.mina.goswap.rest.API;
-import swap.go.george.mina.goswap.rest.ItemsClient;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
-import swap.go.george.mina.goswap.rest.apiModel.ItemPics;
 
 public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>{
     private ArrayList<Item> items;
@@ -47,30 +35,11 @@ public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyVi
     public void onBindViewHolder(@NonNull final HomeItemsAdapter.MyViewHolder holder, int position) {
         Item item = items.get(position);
         holder.title.setText(item.getItemTitle());
-
-
-        Call<ItemPics> call = API.getItems().getItemPics(items.get(position).getItemId());
-
-        call.enqueue(new Callback<ItemPics>() {
-            @Override
-            public void onResponse(Call<ItemPics> call, Response<ItemPics> response) {
-                ArrayList<String> pics = response.body().getItemPics();
-
+        holder.date.setText(item.getDate());
                 Glide.with(mContext)
                 .asBitmap()
-                .load(baseImageUrl+pics.get(0))
+                .load(baseImageUrl+item.getItemPics().get(0))
                 .into(holder.image);
-            }
-
-            @Override
-            public void onFailure(Call<ItemPics> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-
-        //
-
     }
 
     @Override
@@ -82,6 +51,8 @@ public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyVi
     class MyViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_name)
         TextView title;
+        @BindView(R.id.tv_date)
+        TextView date;
         @BindView(R.id.iv_image)
         ImageView image;
 

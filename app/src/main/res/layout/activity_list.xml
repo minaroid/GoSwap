@@ -6,10 +6,13 @@
     android:layout_height="match_parent"
     android:background="#DCDEE3">
 
+    <include layout="@layout/toolbar" />
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_featured_adds"
+        android:id="@+id/rv_large_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:nestedScrollingEnabled="true" />
+        android:layout_marginTop="3dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

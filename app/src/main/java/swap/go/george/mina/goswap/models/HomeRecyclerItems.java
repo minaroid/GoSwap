@@ -1,10 +1,11 @@
 package swap.go.george.mina.goswap.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import swap.go.george.mina.goswap.rest.apiModel.Item;
 
-public class HomeRecyclerItems {
+public class HomeRecyclerItems implements Serializable{
     private String header;
     private String subHeader;
     private String type;

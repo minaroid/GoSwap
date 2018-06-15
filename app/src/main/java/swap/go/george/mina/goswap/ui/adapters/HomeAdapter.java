@@ -19,15 +19,18 @@ import swap.go.george.mina.goswap.models.HomeRecyclerItems;
 import swap.go.george.mina.goswap.models.SpecialHomeRecyclerItems;
 import swap.go.george.mina.goswap.rest.apiModel.Category;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
+import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivityMVP;
 
-public class HomeAdapter extends RecyclerView.Adapter{
+public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickListener {
 
     private final ArrayList<HomeRecyclerItems> homeRecyclerItems;
     private final Context context;
+    private HomeActivityMVP.View activityView ;
 
     public HomeAdapter(ArrayList<HomeRecyclerItems> recyclerItems, Context context) {
         this.context = context;
         this.homeRecyclerItems = recyclerItems;
+        this.activityView = (HomeActivityMVP.View) context;
     }
 
     @NonNull
@@ -64,29 +67,28 @@ public class HomeAdapter extends RecyclerView.Adapter{
                     ArrayList<SpecialHomeRecyclerItems> specialList = loadSpecialList();
                     HomeSpecialAdapter adapter = new HomeSpecialAdapter(specialList);
                     re.setAdapter(adapter);
-
                     break;
                 case "ads":
                     ((MyViewHolder) holder).tv_card_header.setText(homeRecyclerItems.get(position).getHeader());
                     ((MyViewHolder) holder).tv_card_sub_header.setText(homeRecyclerItems.get(position).getSubHeader());
-
                     RecyclerView re2 = ((MyViewHolder) holder).recycler_view;
                     re2.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
                     ArrayList<AdsHomeRecyclerItems> adsList = loadAdsList();
                     HomeAdsAdapter adapter2 = new HomeAdsAdapter(adsList);
                     re2.setAdapter(adapter2);
+//                    ((MyViewHolder) holder).btn_more.setTag(homeRecyclerItems.get(position));
+//                    ((MyViewHolder) holder).btn_more.setOnClickListener(this);
                     break;
                 case "normal":
-
                     ((MyViewHolder) holder).tv_card_header.setText(homeRecyclerItems.get(position).getHeader());
                     ((MyViewHolder) holder).tv_card_sub_header.setText(homeRecyclerItems.get(position).getSubHeader());
                     RecyclerView re3 = ((MyViewHolder) holder).recycler_view;
                     re3.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
                     HomeItemsAdapter adapter3 = new HomeItemsAdapter(homeRecyclerItems.get(position).getItems(),context);
                     re3.setAdapter(adapter3);
+                    ((MyViewHolder) holder).btn_more.setTag(homeRecyclerItems.get(position));
+                    ((MyViewHolder) holder).btn_more.setOnClickListener(this);
                     break;
-
-
             }
         }
     }
@@ -137,6 +139,11 @@ public class HomeAdapter extends RecyclerView.Adapter{
         }
 
         return mArrayList;
+    }
+
+    @Override
+    public void onClick(View v) {
+        activityView.openListActivity((HomeRecyclerItems) v.getTag());
     }
 
     /// Holders

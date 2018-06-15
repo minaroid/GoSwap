@@ -74,7 +74,7 @@ dependencies {
     implementation 'com.github.clans:fab:' + rootProject.librariesVersions.fabMenuClansVersion
 
     // circleImage
-    implementation 'de.hdodenhof:circleimageview:'+ rootProject.librariesVersions.circleImage
+    implementation 'de.hdodenhof:circleimageview:' + rootProject.librariesVersions.circleImage
 
 
 }
