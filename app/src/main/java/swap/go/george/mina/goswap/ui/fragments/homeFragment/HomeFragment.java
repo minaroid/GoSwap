@@ -1,5 +1,6 @@
 package swap.go.george.mina.goswap.ui.fragments.homeFragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +25,8 @@ import swap.go.george.mina.goswap.rest.apiModel.Item;
 import swap.go.george.mina.goswap.root.App;
 import swap.go.george.mina.goswap.ui.adapters.HomeAdapter;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class HomeFragment extends Fragment implements HomeFragmentMVP.View{
 
     @BindView(R.id.rv_featured_adds)
@@ -32,12 +35,13 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View{
     HomeFragmentMVP.Presenter presenter;
 
     private HomeAdapter adapter;
-
+    private SharedPreferences pref ;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new HomeFragmentPresenter();
         presenter.setView(this);
+        pref = getActivity().getSharedPreferences("location", MODE_PRIVATE);
     }
 
     @Nullable
@@ -53,9 +57,26 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View{
         ButterKnife.bind(this,view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false));
-        presenter.loadData();
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        switch (pref.getInt("location",0)){
+            case 1:
+                 presenter.loadAllCountry();
+                 break;
+            case 2:
+                presenter.loadByGovernate(pref.getString("governate",null));
+                break;
+            case 3:
+                presenter.loadByCity(pref.getString("city",null));
+                break;
+            default:
+                presenter.loadAllCountry();
+        }
+    }
 
     @Override
     public void showMessage(int msg) {

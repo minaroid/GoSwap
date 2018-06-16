@@ -16,7 +16,9 @@ public interface HomeFragmentMVP {
 
     interface Presenter {
 
-        void loadData();
+        void loadAllCountry();
+        void loadByGovernate(String governate);
+        void loadByCity(String city);
         void setView(HomeFragmentMVP.View v);
         HomeFragmentMVP.View getView();
         void rxUnsubscribe();

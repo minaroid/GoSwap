@@ -25,8 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.listActivity.ListActivity"
-            android:parentActivityName=".ui.activities.homeActivity.HomeActivity"></activity>
+        <activity
+            android:name=".ui.activities.listActivity.ListActivity"
+            android:parentActivityName=".ui.activities.homeActivity.HomeActivity" />
+        <activity android:name=".ui.activities.governatesActivity.GovernateActivity" />
+        <activity android:name=".ui.activities.citiesActivity.CitiesActivity"></activity>
     </application>
 
 </manifest>

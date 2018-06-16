@@ -48,4 +48,6 @@ public class ListActivity extends AppCompatActivity {
         int columns = Math.round(dpWidth/300);
         return new GridLayoutManager(this,columns);
     }
+
+
 }

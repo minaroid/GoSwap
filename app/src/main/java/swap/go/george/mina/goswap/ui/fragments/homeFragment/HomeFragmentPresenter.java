@@ -14,7 +14,7 @@ public class HomeFragmentPresenter implements HomeFragmentMVP.Presenter {
 
     private HomeFragmentMVP.View view;
     private Subscription subscription = null;
-
+    private Call<ArrayList<Category>> call;
     public HomeFragmentPresenter(){
     }
 
@@ -24,33 +24,44 @@ public class HomeFragmentPresenter implements HomeFragmentMVP.Presenter {
     }
 
     @Override
-    public void loadData() {
-//        subscription = api.getHomeItems().subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<HomeItem>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        view.showMessage(0);
-//                        e.printStackTrace();
-//                    }
-//
-//                    @Override
-//                    public void onNext(HomeItem i) {
-//
-//                        view.notifyAdapter(i);
-//                        Log.d("dddfff",i.toString());
-//
-//
-//                    }
-//                });
+    public void loadAllCountry() {
+            call = API.getItems().getAllItems();
+            call.enqueue(new Callback<ArrayList<Category>>() {
+                @Override
+                public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response) {
+                    ArrayList<Category> categories = response.body();
+                    view.notifyAdapter(categories);
+                }
 
-        Call<ArrayList<Category>> call = API.getItems().getHomeItems();
+                @Override
+                public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+    }
 
+    @Override
+    public void loadByGovernate(String governate) {
+
+        call = API.getItems().getAllItemsByGovernate(governate);
+        call.enqueue(new Callback<ArrayList<Category>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response) {
+                ArrayList<Category> categories = response.body();
+                view.notifyAdapter(categories);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void loadByCity(String city) {
+
+        call = API.getItems().getAllItemsByCity(city);
         call.enqueue(new Callback<ArrayList<Category>>() {
             @Override
             public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response) {

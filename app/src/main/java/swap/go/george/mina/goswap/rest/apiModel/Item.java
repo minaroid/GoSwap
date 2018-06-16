@@ -2,6 +2,7 @@
 package swap.go.george.mina.goswap.rest.apiModel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,11 +12,12 @@ public class Item implements Serializable{
     private Integer itemId;
     private String itemTitle;
     private String itemDesc;
+    private String itemGover;
     private String itemCity;
     private String itemCate;
     private String date;
     private Integer authId;
-    private List<String> itemPics = null;
+    private ArrayList<String> itemPics = null;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public Integer getItemId() {
@@ -40,6 +42,14 @@ public class Item implements Serializable{
 
     public void setItemDesc(String itemDesc) {
         this.itemDesc = itemDesc;
+    }
+
+    public String getItemGover() {
+        return itemGover;
+    }
+
+    public void setItemGover(String itemGover) {
+        this.itemGover = itemGover;
     }
 
     public String getItemCity() {
@@ -74,11 +84,11 @@ public class Item implements Serializable{
         this.authId = authId;
     }
 
-    public List<String> getItemPics() {
+    public ArrayList<String> getItemPics() {
         return itemPics;
     }
 
-    public void setItemPics(List<String> itemPics) {
+    public void setItemPics(ArrayList<String> itemPics) {
         this.itemPics = itemPics;
     }
 

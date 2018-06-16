@@ -18,7 +18,7 @@ import swap.go.george.mina.goswap.rest.apiModel.Item;
 public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>{
     private ArrayList<Item> items;
     private Context mContext;
-    private String baseImageUrl = "http://192.168.1.3:5000";
+    private String baseImageUrl = "http://192.168.1.7:5000";
     public HomeItemsAdapter(ArrayList<Item> items,Context mContext) {
         this.items = items;
         this.mContext = mContext;
@@ -36,10 +36,16 @@ public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyVi
         Item item = items.get(position);
         holder.title.setText(item.getItemTitle());
         holder.date.setText(item.getDate());
+        try{
                 Glide.with(mContext)
                 .asBitmap()
                 .load(baseImageUrl+item.getItemPics().get(0))
                 .into(holder.image);
+        }
+                catch(Exception e){
+
+                   e.printStackTrace();
+        }
     }
 
     @Override
