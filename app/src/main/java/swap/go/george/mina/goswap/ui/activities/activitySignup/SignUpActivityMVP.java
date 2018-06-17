@@ -4,7 +4,7 @@ public interface SignUpActivityMVP {
 
     interface View{
 
-        void showMesaage(String msg);
+        void showMessage(String msg);
     }
 
     interface Presenter{

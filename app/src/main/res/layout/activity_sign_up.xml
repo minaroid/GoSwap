@@ -23,12 +23,13 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imge_signUp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="50dp"
         android:src="@drawable/ic_image"
         android:layout_gravity="center"
-        android:layout_marginBottom="35dp"/>
+        android:layout_marginBottom="35dp"
+        android:onClick="selectImage"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="300dp"
@@ -109,6 +110,7 @@
             android:textColor="#FFFF00"
             android:gravity="center"
             android:layout_gravity="center"
+            android:onClick="signUpBtnClicked"
             android:background="@drawable/button_background"/>
         <TextView
             android:layout_width="wrap_content"
