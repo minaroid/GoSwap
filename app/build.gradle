@@ -18,6 +18,11 @@ android {
     }
 }
 
+repositories {
+
+    mavenCentral()
+}
+
 dependencies {
 
     // test library
@@ -76,5 +81,6 @@ dependencies {
     // circleImage
     implementation 'de.hdodenhof:circleimageview:' + rootProject.librariesVersions.circleImage
 
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
 }

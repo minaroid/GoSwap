@@ -1,31 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
-    android:padding="10dp"
-    android:gravity="bottom"
-    android:background="@color/colorPrimary"
+    android:layout_height="170dp"
+    android:padding="5dp"
+    android:background="#DCDEE3"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
-
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:id="@+id/img_profile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/ic_person_outline"
         android:scaleType="centerCrop"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp" />
+
+  <LinearLayout
+
+      android:layout_marginTop="20dp"
+      android:layout_width="match_parent"
+      android:layout_marginRight="10dp"
+      android:layout_marginLeft="10dp"
+      android:layout_height="30dp"
+      android:orientation="horizontal"
+      android:layout_gravity="center"
+      android:gravity="center"
+      android:background="@drawable/button_background">
 
     <TextView
+        android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/drawer_navi_login_msg"
+        android:textSize="18sp"
+        android:visibility="gone"
         android:fontFamily="@font/montserrat"
-        android:textColor="@color/colorAccent"
-        android:textSize="15sp"
-        android:paddingTop="4dp"
-        android:layout_gravity="center"/>
+        android:textStyle="bold"/>
+
+      <LinearLayout
+        android:id="@+id/linear_headers_btns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+      <TextView
+          android:id="@+id/tv_login"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="LogIn"
+          android:textSize="18sp"
+          android:fontFamily="@font/montserrat"
+          android:textStyle="bold"/>
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="     OR     "
+          android:layout_gravity="center_vertical"
+          android:textColor="#FFFF00"/>
+      <TextView
+          android:id="@+id/tv_signup"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="SignUp"
+          android:textSize="18sp"
+          android:fontFamily="@font/montserrat"
+          android:textStyle="bold"/>
+        </LinearLayout>
+
+  </LinearLayout>
 
 
 </LinearLayout>

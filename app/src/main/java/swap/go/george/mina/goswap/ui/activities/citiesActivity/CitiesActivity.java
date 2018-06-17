@@ -16,6 +16,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
+import swap.go.george.mina.goswap.ui.activities.governatesActivity.GovernateActivity;
+import swap.go.george.mina.goswap.ui.activities.governatesActivity.GovernatesActivityMVP;
 import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivity;
 import swap.go.george.mina.goswap.ui.adapters.CitiesAdapter;
 
@@ -40,6 +42,7 @@ CitiesActivityMVP.View{
         setSupportActionBar(toolbar);
         governate =getIntent().getStringExtra("governate");
         getSupportActionBar().setTitle(governate);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         allGovernate.setText("All "+ governate);
         cities = (ArrayList<String>) getIntent().getSerializableExtra("cities");
         allGovernate.setOnClickListener(this);

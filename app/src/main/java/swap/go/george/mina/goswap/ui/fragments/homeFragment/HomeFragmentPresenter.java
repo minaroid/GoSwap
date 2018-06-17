@@ -6,7 +6,6 @@ import retrofit2.Call;
 import retrofit2.Response;
 import rx.Subscription;
 import swap.go.george.mina.goswap.rest.API;
-import swap.go.george.mina.goswap.rest.ItemsClient;
 import retrofit2.Callback;
 import swap.go.george.mina.goswap.rest.apiModel.Category;
 

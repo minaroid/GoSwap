@@ -17,13 +17,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
+import swap.go.george.mina.goswap.ui.activities.activitySignup.SignUpActivity;
 import swap.go.george.mina.goswap.ui.activities.governatesActivity.GovernateActivity;
 import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivity;
 import swap.go.george.mina.goswap.ui.fragments.chatFragment.ChatFragment;
@@ -41,12 +46,22 @@ public class HomeActivity extends AppCompatActivity
     NavigationView navigationView;
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
+
+    LinearLayout loginAndSignUpLayout;
+    TextView loginBtn;
+    TextView signUpBtn;
+    TextView headerUserName;
+
     private ActionBarDrawerToggle toggle;
     private FragmentManager fragmentManager;
     private String[] fragments;
-    private SharedPreferences pref ;
+    private SharedPreferences userPref , locationPref ;
+    private SharedPreferences.Editor userEditor ;
     private TextView toolbarTitle;
     private TextView toolbarSubTitle;
+    private CircleImageView profileImage ;
+    private  Menu NavigatinMenuItems;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,26 +74,43 @@ public class HomeActivity extends AppCompatActivity
                 ChatFragment.class.getSimpleName()
         };
         fragmentManager = getSupportFragmentManager();
-        pref = getSharedPreferences("location", MODE_PRIVATE);
+        locationPref = getSharedPreferences("location", MODE_PRIVATE);
+        userPref = getSharedPreferences("user", MODE_PRIVATE);
+        userEditor = getSharedPreferences("user", MODE_PRIVATE).edit();
         init();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        switch (pref.getInt("location",0)){
+
+        switch (locationPref.getInt("location",0)){
             case 1:
                 toolbarTitle.setText("All Country");
+                toolbarSubTitle.setText("");
                 break;
             case 2:
-                toolbarTitle.setText(pref.getString("governate",null));
+                toolbarTitle.setText(locationPref.getString("governate",null));
+                toolbarSubTitle.setText("");
                 break;
             case 3:
-                toolbarTitle.setText(pref.getString("governate",null));
-                toolbarSubTitle.setText(pref.getString("city",null));
+                toolbarTitle.setText(locationPref.getString("governate",null));
+                toolbarSubTitle.setText(locationPref.getString("city",null));
                 break;
             default:
                 toolbarTitle.setText("All Country");
+        }
+
+        if(userPref.getString("name",null)!=null){
+            loginAndSignUpLayout.setVisibility(View.GONE);
+            headerUserName.setVisibility(View.VISIBLE);
+            headerUserName.setText(userPref.getString("name",null));
+            Glide.with(this)
+                    .asBitmap()
+                    .load("https://graph.facebook.com/" +userPref.getString("fbId",null)
+                            + "/picture?type=large")
+                    .into(profileImage);
+            NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(true);
         }
     }
 
@@ -117,6 +149,17 @@ public class HomeActivity extends AppCompatActivity
         toolbarSubTitle =(TextView) toolbar.findViewById(R.id.toolbar_sub_title);
         toolbarTitle.setOnClickListener(this);
         toolbarSubTitle.setOnClickListener(this);
+
+        View header = navigationView.getHeaderView(0);
+        loginBtn = (TextView)header.findViewById(R.id.tv_login);
+        signUpBtn = (TextView)header.findViewById(R.id.tv_signup);
+        loginAndSignUpLayout =(LinearLayout)header.findViewById(R.id.linear_headers_btns);
+        headerUserName =(TextView)header.findViewById(R.id.tv_user_name);
+        profileImage =(CircleImageView)header.findViewById(R.id.img_profile) ;
+        NavigatinMenuItems = navigationView.getMenu();
+        NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(false);
+        loginBtn.setOnClickListener(this);
+        signUpBtn.setOnClickListener(this);
     }
 
     public void inflateFragment(int index){
@@ -166,23 +209,14 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
+            case R.id.drawer_navi_logout :
+                logOut();
+                break;
             default:
                 Toast.makeText(this,"df",Toast.LENGTH_SHORT).show();
         }
+
         return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else{
-
-        finish();
-
-        }
     }
 
     @Override
@@ -195,7 +229,38 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(HomeActivity.this, GovernateActivity.class));
+
+        switch (v.getId()){
+            case R.id.toolbar_title :
+                startActivity(new Intent(HomeActivity.this, GovernateActivity.class));
+                break;
+            case R.id.toolbar_sub_title :
+                startActivity(new Intent(HomeActivity.this, GovernateActivity.class));
+                break;
+            case R.id.tv_login:
+                Toast.makeText(this,"login",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_signup:
+                startActivity(new Intent(this,SignUpActivity.class));
+                break;
+        }
+    }
+
+    public void logOut(){
+        userEditor.clear();
+        userEditor.commit();
+        loginAndSignUpLayout.setVisibility(View.VISIBLE);
+        headerUserName.setVisibility(View.GONE);
+        profileImage.setImageResource(R.drawable.ic_person_outline);
+        NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(false);
 
     }
+    @Override
+    public void onBackPressed() {
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START); }
+        else { finish(); }
+    }
+
 }

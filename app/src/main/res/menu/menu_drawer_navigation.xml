@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <item
+        android:id="@+id/drawer_navi_home"
+        android:title="@string/bt_navi_home"
+        android:icon="@drawable/ic_home" />
+
+
+    <item
+        android:id="@+id/drawer_navi_fav"
+        android:title="@string/bt_navi_favo"
+        android:icon="@drawable/ic_favorite" />
+
+
+    <item
+        android:id="@+id/drawer_navi_msg"
+        android:title="@string/bt_navi_msg"
+        android:icon="@drawable/ic_chat" />
+
+    <item
+        android:id="@+id/drawer_navi_sett"
+        android:title="@string/bt_navi_sett"
+        android:icon="@drawable/ic_chat" />
+
+    <item
+        android:id="@+id/drawer_navi_about"
+        android:title="@string/bt_navi_about"
+        android:icon="@drawable/ic_chat" />
+    <item
+        android:id="@+id/drawer_navi_logout"
+        android:title="@string/bt_navi_logout"
+        android:icon="@drawable/ic_chat" />
 </menu>

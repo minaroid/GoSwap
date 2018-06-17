@@ -12,9 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
 
         <activity
             android:name=".ui.activities.homeActivity.HomeActivity"
@@ -25,11 +29,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.activities.listActivity.ListActivity"
             android:parentActivityName=".ui.activities.homeActivity.HomeActivity" />
+
         <activity android:name=".ui.activities.governatesActivity.GovernateActivity" />
-        <activity android:name=".ui.activities.citiesActivity.CitiesActivity"></activity>
+
+        <activity android:name=".ui.activities.citiesActivity.CitiesActivity"
+            android:parentActivityName=".ui.activities.governatesActivity.GovernateActivity"/>
+
+        <activity android:name=".ui.activities.activitySignup.SignUpActivity"
+            android:parentActivityName=".ui.activities.homeActivity.HomeActivity">
+
+        </activity>
+
+        <provider android:authorities="com.facebook.app.FacebookContentProvider1234"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
+
     </application>
 
 </manifest>
