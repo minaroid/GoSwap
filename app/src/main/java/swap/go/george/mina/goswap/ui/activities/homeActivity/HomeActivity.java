@@ -47,6 +47,7 @@ public class HomeActivity extends AppCompatActivity
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
 
+
     LinearLayout loginAndSignUpLayout;
     TextView loginBtn;
     TextView signUpBtn;
