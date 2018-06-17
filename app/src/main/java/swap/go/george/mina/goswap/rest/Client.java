@@ -12,9 +12,8 @@ import swap.go.george.mina.goswap.rest.apiModel.SignUpInfo;
 
 public interface Client {
 
-    @GET("all_items-for-swap/")
+    @GET("all_items-for-swap/ ")
     Call<ArrayList<Category>> getAllItems();
-
 
     @GET("governate_items-for-swap/{goverquery}/")
     Call<ArrayList<Category>> getAllItemsByGovernate(@Path("goverquery") String query);

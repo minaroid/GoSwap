@@ -105,11 +105,18 @@ public class HomeActivity extends AppCompatActivity
             loginAndSignUpLayout.setVisibility(View.GONE);
             headerUserName.setVisibility(View.VISIBLE);
             headerUserName.setText(userPref.getString("name",null));
-            Glide.with(this)
-                    .asBitmap()
-                    .load("https://graph.facebook.com/" +userPref.getString("fbId",null)
-                            + "/picture?type=large")
-                    .into(profileImage);
+            if(!userPref.getString("fbId",null).equals("0")){
+                Glide.with(this)
+                        .asBitmap()
+                        .load("https://graph.facebook.com/" +userPref.getString("fbId",null)
+                                + "/picture?type=large")
+                        .into(profileImage);}
+            else{
+                Glide.with(this)
+                        .asBitmap()
+                        .load("http://192.168.1.104:5000" +userPref.getString("pic",null))
+                        .into(profileImage);
+            }
             NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(true);
         }
     }
