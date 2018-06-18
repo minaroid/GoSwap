@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activities.activitySignup.SignUpActivity">
+    tools:context=".ui.activities.activityLoginAndSignup.SignUpActivity">
 
     <include layout="@layout/toolbar"/>
 
@@ -119,25 +119,7 @@
             android:layout_gravity="center"
             android:onClick="signUpBtnClicked"
             android:background="@drawable/button_background"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OR SignUp Using Facebook "
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:fontFamily="@font/montserrat"/>
 
-
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/tv_signup_fb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp" />
 </LinearLayout>
     </ScrollView>
 </LinearLayout>

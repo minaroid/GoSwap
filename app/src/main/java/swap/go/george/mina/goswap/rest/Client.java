@@ -8,7 +8,7 @@ import retrofit2.http.Path;
 
 import swap.go.george.mina.goswap.rest.apiModel.Category;
 import swap.go.george.mina.goswap.rest.apiModel.Governate;
-import swap.go.george.mina.goswap.rest.apiModel.SignUpInfo;
+import swap.go.george.mina.goswap.rest.apiModel.UserInfo;
 
 public interface Client {
 
@@ -25,7 +25,10 @@ public interface Client {
     Call<ArrayList<Governate>> getGovernates();
 
     @GET("signup_fb/{name}/{email}/{fb_id}/")
-    Call<ArrayList<SignUpInfo>> signUpUsingFb(@Path("name") String namee,
-                                              @Path("email") String emaill,
-                                              @Path("fb_id") String picc);
+    Call<ArrayList<UserInfo>> signUpUsingFb(@Path("name") String namee,
+                                            @Path("email") String emaill,
+                                            @Path("fb_id") String picc);
+    @GET("login_fb/{email}/")
+    Call<ArrayList<UserInfo>> checkLoginFb(@Path("email") String email);
+
 }

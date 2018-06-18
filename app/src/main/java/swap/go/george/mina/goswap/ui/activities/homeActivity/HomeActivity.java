@@ -28,7 +28,8 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
-import swap.go.george.mina.goswap.ui.activities.activitySignup.SignUpActivity;
+import swap.go.george.mina.goswap.ui.activities.activityLoginAndSignup.LoginActivity;
+import swap.go.george.mina.goswap.ui.activities.activityLoginAndSignup.SignUpActivity;
 import swap.go.george.mina.goswap.ui.activities.governatesActivity.GovernateActivity;
 import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivity;
 import swap.go.george.mina.goswap.ui.fragments.chatFragment.ChatFragment;
@@ -246,7 +247,7 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(new Intent(HomeActivity.this, GovernateActivity.class));
                 break;
             case R.id.tv_login:
-                Toast.makeText(this,"login",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                 break;
             case R.id.tv_signup:
                 startActivity(new Intent(this,SignUpActivity.class));

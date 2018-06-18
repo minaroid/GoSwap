@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.activityLoginAndSignup.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar"/>
+
+         <ImageView
+             android:layout_width="100dp"
+             android:layout_height="100dp"
+             android:layout_marginTop="20dp"
+             android:layout_gravity="center"
+             android:background="@color/colorPrimary"/>
+
+        <LinearLayout
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:focusableInTouchMode="true">
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/text_layout_email"
+                app:passwordToggleEnabled="true">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_email"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint ="Email"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/text_layout_pass"
+                app:passwordToggleEnabled="true">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_pass"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint ="Password"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Log In"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/nunito_sans_light_italic"
+                android:layout_marginTop="30dp"
+                android:textColor="#FFFF00"
+                android:gravity="center"
+                android:onClick="loginBtnClicked"
+                android:layout_gravity="center"
+                android:background="@drawable/button_background"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OR Login Using Facebook "
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:fontFamily="@font/montserrat"/>
+
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/tv_login_fb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>
