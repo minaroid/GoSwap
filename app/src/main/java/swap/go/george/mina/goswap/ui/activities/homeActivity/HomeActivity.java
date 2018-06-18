@@ -2,6 +2,7 @@ package swap.go.george.mina.goswap.ui.activities.homeActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -12,7 +13,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,7 +47,6 @@ public class HomeActivity extends AppCompatActivity
     NavigationView navigationView;
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
-
 
     LinearLayout loginAndSignUpLayout;
     TextView loginBtn;
@@ -154,21 +153,22 @@ public class HomeActivity extends AppCompatActivity
 
         inflateFragment(0);
 
-        toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        toolbarSubTitle =(TextView) toolbar.findViewById(R.id.toolbar_sub_title);
+        toolbarTitle = toolbar.findViewById(R.id.toolbar_title);
+        toolbarSubTitle = toolbar.findViewById(R.id.toolbar_sub_title);
         toolbarTitle.setOnClickListener(this);
         toolbarSubTitle.setOnClickListener(this);
 
         View header = navigationView.getHeaderView(0);
-        loginBtn = (TextView)header.findViewById(R.id.tv_login);
-        signUpBtn = (TextView)header.findViewById(R.id.tv_signup);
-        loginAndSignUpLayout =(LinearLayout)header.findViewById(R.id.linear_headers_btns);
-        headerUserName =(TextView)header.findViewById(R.id.tv_user_name);
-        profileImage =(CircleImageView)header.findViewById(R.id.img_profile) ;
+        loginBtn = header.findViewById(R.id.tv_login);
+        signUpBtn = header.findViewById(R.id.tv_signup);
+        loginAndSignUpLayout = header.findViewById(R.id.linear_headers_btns);
+        headerUserName = header.findViewById(R.id.tv_user_name);
+        profileImage = header.findViewById(R.id.img_profile);
         NavigatinMenuItems = navigationView.getMenu();
         NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(false);
         loginBtn.setOnClickListener(this);
         signUpBtn.setOnClickListener(this);
+
     }
 
     public void inflateFragment(int index){
@@ -252,6 +252,7 @@ public class HomeActivity extends AppCompatActivity
             case R.id.tv_signup:
                 startActivity(new Intent(this,SignUpActivity.class));
                 break;
+
         }
     }
 

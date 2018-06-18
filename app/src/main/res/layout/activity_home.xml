@@ -16,10 +16,13 @@
     <include layout="@layout/toolbar" />
 
     <FrameLayout
+        android:id="@+id/home_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/home_container"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:layout_marginBottom="110dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <include layout="@layout/floating_action_menu" />
 
     <include layout="@layout/bottom_navigation" />
 
@@ -36,4 +39,3 @@
         app:menu="@menu/menu_drawer_navigation"/>
 
 </android.support.v4.widget.DrawerLayout>
-
