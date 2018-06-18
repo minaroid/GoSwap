@@ -375,6 +375,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityM
             @Override
             public void afterTextChanged(Editable s) {
 
+
             }
         });
 
