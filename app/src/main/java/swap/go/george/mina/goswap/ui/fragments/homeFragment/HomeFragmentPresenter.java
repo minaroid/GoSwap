@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Response;
-import rx.Subscription;
 import swap.go.george.mina.goswap.rest.API;
 import retrofit2.Callback;
 import swap.go.george.mina.goswap.rest.apiModel.Category;
@@ -12,7 +11,6 @@ import swap.go.george.mina.goswap.rest.apiModel.Category;
 public class HomeFragmentPresenter implements HomeFragmentMVP.Presenter {
 
     private HomeFragmentMVP.View view;
-    private Subscription subscription = null;
     private Call<ArrayList<Category>> call;
     public HomeFragmentPresenter(){
     }
@@ -75,14 +73,7 @@ public class HomeFragmentPresenter implements HomeFragmentMVP.Presenter {
         });
     }
 
-    @Override
-    public void rxUnsubscribe() {
-        if(view != null){
-            if(!subscription.isUnsubscribed()){
-                subscription.unsubscribe();
-            }
-        }
-    }
+
     @Override
     public HomeFragmentMVP.View getView() {
         return view;

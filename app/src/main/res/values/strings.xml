@@ -20,6 +20,7 @@
     <string name="view_more_key_items">eedfqwefdeedefef</string>
     /////
 
+    <string name="base_url">http://192.168.43.254:5000/</string>
 
     <string name="facebook_app_id">2658875981005086</string>
     <string name="fb_login_protocol_scheme">fb2658875981005086</string>

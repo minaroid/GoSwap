@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,12 +18,27 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:id="@+id/current_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#fff">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_location"
+            android:layout_gravity="center_vertical"/>
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginTop="3dp"
-            android:background="#fff"
-            android:id="@+id/my_location_layout">
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:id="@+id/my_location_layout"
+            android:layout_gravity="center_vertical">
             <TextView
+                android:id="@+id/tv_current_governate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="My Location"
@@ -31,6 +47,19 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/nunito_sans_light_italic"/>
+            <TextView
+                android:id="@+id/tv_current_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enable location"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_below="@id/tv_current_governate"
+                android:layout_gravity="center_vertical"
+                android:layout_alignRight="@id/tv_current_governate"
+                android:fontFamily="@font/nunito_sans_light_italic"/>
+
+        </RelativeLayout>
 
         </LinearLayout>
 
@@ -39,31 +68,34 @@
             android:layout_height="70dp"
             android:layout_marginTop="3dp"
             android:background="#fff"
-            android:id="@+id/tv_all_country">
+            android:id="@+id/all_country">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="All Country"
-                android:textSize="16sp"
+                android:text="Whole Country"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/nunito_sans_light_italic"/>
 
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="Chose Governate"
+            android:layout_marginLeft="4dp"
+            android:text="CHOOSE A REGION"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_governates"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp" />
+            android:layout_marginTop="2dp" />
 
     </LinearLayout>
 

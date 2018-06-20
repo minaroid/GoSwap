@@ -43,7 +43,7 @@ CitiesActivityMVP.View{
         governate =getIntent().getStringExtra("governate");
         getSupportActionBar().setTitle(governate);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        allGovernate.setText("All "+ governate);
+        allGovernate.setText("Whole "+ governate);
         cities = (ArrayList<String>) getIntent().getSerializableExtra("cities");
         allGovernate.setOnClickListener(this);
         editor = getSharedPreferences("location", MODE_PRIVATE).edit();

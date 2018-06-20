@@ -27,7 +27,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="50dp"
-        android:src="@drawable/ic_image"
+        android:src="@drawable/ic_cameraa"
         android:layout_gravity="center"
         android:layout_marginBottom="35dp"
         android:onClick="selectImage"/>

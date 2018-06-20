@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,7 +89,7 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View{
 
         mArrayList.add(new HomeRecyclerItems("", "", "special",null));
 
-        mArrayList.add(new HomeRecyclerItems("Ads", "Selected Ads for you", "ads",null));
+//        mArrayList.add(new HomeRecyclerItems("Ads", "Selected Ads for you", "ads",null));
 
         for(Category i : categories)
             if(i.getItems().size() != 0) {

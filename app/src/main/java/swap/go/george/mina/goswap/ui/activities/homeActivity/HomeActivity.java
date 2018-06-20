@@ -2,10 +2,14 @@ package swap.go.george.mina.goswap.ui.activities.homeActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,11 +35,13 @@ import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
 import swap.go.george.mina.goswap.ui.activities.activityLoginAndSignup.LoginActivity;
 import swap.go.george.mina.goswap.ui.activities.activityLoginAndSignup.SignUpActivity;
+import swap.go.george.mina.goswap.ui.activities.addItemActivity.AddItemActivity;
 import swap.go.george.mina.goswap.ui.activities.governatesActivity.GovernateActivity;
 import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivity;
 import swap.go.george.mina.goswap.ui.fragments.chatFragment.ChatFragment;
 import swap.go.george.mina.goswap.ui.fragments.favoritesFragment.FavoritesFragment;
 import swap.go.george.mina.goswap.ui.fragments.homeFragment.HomeFragment;
+import swap.go.george.mina.goswap.utils.CurrentLocation;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,HomeActivityMVP.View, View.OnClickListener {
@@ -47,6 +54,8 @@ public class HomeActivity extends AppCompatActivity
     NavigationView navigationView;
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
+    @BindView(R.id.fab_add)
+    FloatingActionButton floatingActionButton;
 
     LinearLayout loginAndSignUpLayout;
     TextView loginBtn;
@@ -61,7 +70,8 @@ public class HomeActivity extends AppCompatActivity
     private TextView toolbarTitle;
     private TextView toolbarSubTitle;
     private CircleImageView profileImage ;
-    private  Menu NavigatinMenuItems;
+    private Menu NavigatinMenuItems;
+    private static final int permissionId = 400;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +89,7 @@ public class HomeActivity extends AppCompatActivity
         userPref = getSharedPreferences("user", MODE_PRIVATE);
         userEditor = getSharedPreferences("user", MODE_PRIVATE).edit();
         init();
+        updateLocation();
     }
 
     @Override
@@ -87,7 +98,7 @@ public class HomeActivity extends AppCompatActivity
 
         switch (locationPref.getInt("location",0)){
             case 1:
-                toolbarTitle.setText("All Country");
+                toolbarTitle.setText("Whole Country");
                 toolbarSubTitle.setText("");
                 break;
             case 2:
@@ -95,11 +106,11 @@ public class HomeActivity extends AppCompatActivity
                 toolbarSubTitle.setText("");
                 break;
             case 3:
-                toolbarTitle.setText(locationPref.getString("governate",null));
-                toolbarSubTitle.setText(locationPref.getString("city",null));
+                toolbarSubTitle.setText(locationPref.getString("governate",null));
+                toolbarTitle.setText(locationPref.getString("city",null));
                 break;
             default:
-                toolbarTitle.setText("All Country");
+                toolbarTitle.setText("Whole Country");
         }
 
         if(userPref.getString("name",null)!=null){
@@ -115,7 +126,7 @@ public class HomeActivity extends AppCompatActivity
             else{
                 Glide.with(this)
                         .asBitmap()
-                        .load("http://192.168.1.104:5000" +userPref.getString("pic",null))
+                        .load("http://192.168.1.4:5000" +userPref.getString("pic",null))
                         .into(profileImage);
             }
             NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(true);
@@ -168,6 +179,7 @@ public class HomeActivity extends AppCompatActivity
         NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(false);
         loginBtn.setOnClickListener(this);
         signUpBtn.setOnClickListener(this);
+        floatingActionButton.setOnClickListener(this);
 
     }
 
@@ -237,6 +249,11 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
+    public void showMessage(String msg) {
+       Snackbar.make(drawerLayout, msg, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
     public void onClick(View v) {
 
         switch (v.getId()){
@@ -252,6 +269,14 @@ public class HomeActivity extends AppCompatActivity
             case R.id.tv_signup:
                 startActivity(new Intent(this,SignUpActivity.class));
                 break;
+            case R.id.fab_add:
+               if(userPref.getString("name",null) == null){
+                      HomeActivity.this.showMessage("you must login first");
+               }
+               else{
+                   startActivity(new Intent(this,AddItemActivity.class));
+               }
+                break;
 
         }
     }
@@ -265,6 +290,35 @@ public class HomeActivity extends AppCompatActivity
         NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(false);
 
     }
+
+    public void updateLocation(){
+        if(checkLocationPermission()){
+        CurrentLocation location = new CurrentLocation(this);
+        }
+    }
+
+
+    public boolean checkLocationPermission() {
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, permissionId);
+        } else {
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == permissionId) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                updateLocation();
+            }
+        }
+    }
+
     @Override
     public void onBackPressed() {
 
@@ -272,5 +326,7 @@ public class HomeActivity extends AppCompatActivity
             drawerLayout.closeDrawer(GravityCompat.START); }
         else { finish(); }
     }
+
+
 
 }

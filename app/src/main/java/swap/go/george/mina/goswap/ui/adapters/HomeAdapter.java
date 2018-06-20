@@ -1,9 +1,13 @@
 package swap.go.george.mina.goswap.ui.adapters;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +30,30 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
     private final ArrayList<HomeRecyclerItems> homeRecyclerItems;
     private final Context context;
     private HomeActivityMVP.View activityView ;
+    LinearLayoutManager layoutManager ;
 
-    public HomeAdapter(ArrayList<HomeRecyclerItems> recyclerItems, Context context) {
+
+    public HomeAdapter(ArrayList<HomeRecyclerItems> recyclerItems, final Context context) {
         this.context = context;
         this.homeRecyclerItems = recyclerItems;
         this.activityView = (HomeActivityMVP.View) context;
+
+//        this.layoutManager = new LinearLayoutManager(context) {
+//            @Override
+//            public void smoothScrollToPosition(RecyclerView recyclerView,RecyclerView.State state, int position) {
+//                LinearSmoothScroller smoothScroller = new LinearSmoothScroller(context) {
+//                    private static final float SPEED = 4000f;// Change this value (default=25f)
+//                    @Override
+//                    protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
+//                        return SPEED / displayMetrics.densityDpi;
+//                    }
+//                };
+//                smoothScroller.setTargetPosition(position);
+//                startSmoothScroll(smoothScroller);
+//            }
+//
+//        };
+//        this.layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
     }
 
     @NonNull
@@ -66,6 +89,7 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
                     re.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
                     ArrayList<SpecialHomeRecyclerItems> specialList = loadSpecialList();
                     HomeSpecialAdapter adapter = new HomeSpecialAdapter(specialList);
+//                    re.setLayoutManager(layoutManager);
                     re.setAdapter(adapter);
                     break;
                 case "ads":
@@ -174,4 +198,5 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
 
         }
     }
+
 }

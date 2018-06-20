@@ -52,8 +52,6 @@ dependencies {
     //http logging
     implementation 'com.squareup.okhttp3:logging-interceptor:' + rootProject.librariesVersions.okhttpLibraryVersion
 
-    // the Exo player video
-    implementation 'com.google.android.exoplayer:exoplayer:' + rootProject.librariesVersions.exoPlayerVersion
 
     // bind library
     implementation 'com.jakewharton:butterknife:' + rootProject.librariesVersions.butterKnifeLibraryVersion
@@ -62,14 +60,7 @@ dependencies {
     // glide library 'Photo processing library'
     implementation 'com.github.bumptech.glide:glide:' + rootProject.librariesVersions.glideLibraryVersion
 
-    //injection
-    implementation 'com.google.dagger:dagger:' + rootProject.librariesVersions.daggerLibraryVersion
-    annotationProcessor 'com.google.dagger:dagger-compiler:' + rootProject.librariesVersions.daggerLibraryVersion
 
-    //RxJava
-    implementation 'io.reactivex:rxandroid:' + rootProject.librariesVersions.rxandroidLibraryVersion
-    implementation 'io.reactivex:rxjava:' + rootProject.librariesVersions.rxjavaLibraryVersion
-    implementation 'com.squareup.retrofit2:adapter-rxjava:' + rootProject.librariesVersions.adapterRxjavaLibraryVersion
 
     //Room DB
     implementation "android.arch.persistence.room:runtime:" + rootProject.librariesVersions.roomLibraryVersion
@@ -83,7 +74,12 @@ dependencies {
 
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
+    compile 'com.droidninja:filepicker:1.0.0'
+
+
 
     compile 'com.android.volley:volley:1.0.0'
 
+    compile 'com.google.android.gms:play-services-location:15.0.1'
+    compile 'com.google.android.gms:play-services-places:15.0.1'
 }

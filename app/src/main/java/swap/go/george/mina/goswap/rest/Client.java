@@ -27,10 +27,16 @@ public interface Client {
     Call<ArrayList<UserInfo>> signUpUsingFb(@Path("name") String name,
                                             @Path("email") String email,
                                             @Path("fb_id") String pic);
+
     @GET("login_fb/{email}/")
     Call<ArrayList<UserInfo>> checkLoginFb(@Path("email") String email);
 
     @GET("login/{email}/{passw}/")
     Call<ArrayList<UserInfo>> checkLogin(@Path("email") String email, @Path("passw") String pass);
+
+
+    @GET("update_location/{governate}/{city}/")
+    Call<String> updateLocation(@Path("governate") String gover, @Path("city") String city);
+
 
 }

@@ -2,6 +2,9 @@ package swap.go.george.mina.goswap.ui.activities.governatesActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +26,7 @@ import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.rest.apiModel.Governate;
 import swap.go.george.mina.goswap.ui.activities.citiesActivity.CitiesActivity;
 import swap.go.george.mina.goswap.ui.adapters.GovernatesAdapter;
+import swap.go.george.mina.goswap.utils.CurrentLocation;
 
 public class GovernateActivity extends AppCompatActivity implements GovernatesActivityMVP.View, View.OnClickListener {
 
@@ -30,12 +34,19 @@ public class GovernateActivity extends AppCompatActivity implements GovernatesAc
     Toolbar toolbar;
     @BindView(R.id.rv_governates)
     RecyclerView recyclerView;
-    @BindView(R.id.tv_all_country)
+    @BindView(R.id.all_country)
     LinearLayout allCountry;
+    @BindView(R.id.current_location)
+    LinearLayout currentLocationLayout;
+    @BindView(R.id.tv_current_governate)
+    TextView textViewCurrentCity;
+    @BindView(R.id.tv_current_city)
+    TextView textViewCurrentGovernate;
     private GovernatesActivityMVP.Presenter presenter;
     private GovernatesAdapter adapter;
     private SharedPreferences.Editor editor;
-
+    private SharedPreferences currentLocationPref;
+    private static final int permissionId = 700;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +62,15 @@ public class GovernateActivity extends AppCompatActivity implements GovernatesAc
         adapter = new GovernatesAdapter(this);
         recyclerView.setAdapter(adapter);
         allCountry.setOnClickListener(this);
+        currentLocationLayout.setOnClickListener(this);
+        currentLocationPref = getSharedPreferences("currentLocation", MODE_PRIVATE);
         editor = getSharedPreferences("location", MODE_PRIVATE).edit();
+
+        if(currentLocationPref.getString("governate",null) != null){
+            textViewCurrentCity.setText(currentLocationPref.getString("city",null));
+            textViewCurrentGovernate.setText(currentLocationPref.getString("governate",null));
+            }
+
     }
 
     @Override
@@ -93,11 +112,43 @@ public class GovernateActivity extends AppCompatActivity implements GovernatesAc
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tv_all_country :
+            case R.id.all_country :
                 editor.putInt("location", 1);
                 editor.apply();
                 finish();
                 break;
+            case  R.id.current_location:
+                if(currentLocationPref.getString("governate",null) == null){
+                    if(checkLocationPermission()){
+                        CurrentLocation location = new CurrentLocation(this);
+                    }
+                }
+
+                break;
+
         }
     }
+
+
+    public boolean checkLocationPermission() {
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, permissionId);
+        } else {
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == permissionId) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+              CurrentLocation  location = new CurrentLocation(this);
+            }
+        }
+    }
+
 }

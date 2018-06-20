@@ -87,17 +87,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityM
         intInputLayouts();
     }
 
-    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize, boolean filter) {
-        float ratio = Math.min(
-                maxImageSize / realImage.getWidth(),
-                maxImageSize / realImage.getHeight());
-        int width = Math.round(ratio * realImage.getWidth());
-        int height = Math.round(ratio * realImage.getHeight());
-
-        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
-                height, filter);
-        return newBitmap;
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -164,7 +153,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityM
     }
 
     public void uploadToServer(Bitmap bitmap, final String name, final String email, final String pass, final String phone) {
-        String url = "http://192.168.1.104:5000/signup_data";
+        String url = "http://192.168.1.4:5000/signup_data";
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
                 new com.android.volley.Response.Listener<NetworkResponse>() {
                     @Override
@@ -432,6 +421,19 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityM
             return outputStream.toByteArray();
         } else
             return null;
+    }
+
+
+    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize, boolean filter) {
+        float ratio = Math.min(
+                maxImageSize / realImage.getWidth(),
+                maxImageSize / realImage.getHeight());
+        int width = Math.round(ratio * realImage.getWidth());
+        int height = Math.round(ratio * realImage.getHeight());
+
+        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
+                height, filter);
+        return newBitmap;
     }
 
 }

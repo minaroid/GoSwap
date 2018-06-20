@@ -8,5 +8,6 @@ public interface HomeActivityMVP {
     interface View {
 
         void openListActivity(HomeRecyclerItems c);
+        void showMessage(String msg);
     }
 }

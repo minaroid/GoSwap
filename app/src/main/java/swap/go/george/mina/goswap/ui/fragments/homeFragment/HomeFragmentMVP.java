@@ -2,7 +2,6 @@ package swap.go.george.mina.goswap.ui.fragments.homeFragment;
 
 import java.util.ArrayList;
 
-import rx.Observable;
 import swap.go.george.mina.goswap.rest.apiModel.Category;
 
 public interface HomeFragmentMVP {
@@ -21,7 +20,6 @@ public interface HomeFragmentMVP {
         void loadByCity(String city);
         void setView(HomeFragmentMVP.View v);
         HomeFragmentMVP.View getView();
-        void rxUnsubscribe();
 
     }
 
