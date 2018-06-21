@@ -123,7 +123,11 @@ public class GovernateActivity extends AppCompatActivity implements GovernatesAc
                         CurrentLocation location = new CurrentLocation(this);
                     }
                 }
-
+                editor.putInt("location", 3);
+                editor.putString("governate",currentLocationPref.getString("governate",null));
+                editor.putString("city",currentLocationPref.getString("city",null));
+                editor.apply();
+                finish();
                 break;
 
         }

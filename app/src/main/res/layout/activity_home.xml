@@ -22,8 +22,6 @@
         android:layout_marginBottom="110dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <include layout="@layout/floating_action_menu" />
-
     <include layout="@layout/bottom_navigation" />
 
 </android.support.design.widget.CoordinatorLayout>

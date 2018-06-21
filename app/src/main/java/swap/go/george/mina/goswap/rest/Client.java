@@ -38,5 +38,12 @@ public interface Client {
     @GET("update_location/{governate}/{city}/")
     Call<String> updateLocation(@Path("governate") String gover, @Path("city") String city);
 
+    @GET("upload_item_data/{item_title}/{item_des}/{item_gover}/{item_city}/{item_cate}/{date}/{auth_id}/{lat}/{lon}/{auth_name}/{phone}/")
+    Call<String> uploadItemData( @Path("item_title") String itemTitle,
+                                @Path("item_des") String itemDes, @Path("item_gover") String itemGover,
+                                @Path("item_city") String itemCity, @Path("item_cate") String itemCate,
+                                @Path("date") String date, @Path("auth_id") String authId,
+                                @Path("lat") String lat, @Path("lon") String lon,
+                                @Path("auth_name") String authName, @Path("phone") String phone);
 
 }

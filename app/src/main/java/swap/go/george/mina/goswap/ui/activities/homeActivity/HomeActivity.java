@@ -54,8 +54,7 @@ public class HomeActivity extends AppCompatActivity
     NavigationView navigationView;
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
-    @BindView(R.id.fab_add)
-    FloatingActionButton floatingActionButton;
+
 
     LinearLayout loginAndSignUpLayout;
     TextView loginBtn;
@@ -179,7 +178,6 @@ public class HomeActivity extends AppCompatActivity
         NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(false);
         loginBtn.setOnClickListener(this);
         signUpBtn.setOnClickListener(this);
-        floatingActionButton.setOnClickListener(this);
 
     }
 
@@ -268,14 +266,6 @@ public class HomeActivity extends AppCompatActivity
                 break;
             case R.id.tv_signup:
                 startActivity(new Intent(this,SignUpActivity.class));
-                break;
-            case R.id.fab_add:
-               if(userPref.getString("name",null) == null){
-                      HomeActivity.this.showMessage("you must login first");
-               }
-               else{
-                   startActivity(new Intent(this,AddItemActivity.class));
-               }
                 break;
 
         }

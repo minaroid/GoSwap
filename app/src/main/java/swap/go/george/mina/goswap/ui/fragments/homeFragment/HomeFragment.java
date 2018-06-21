@@ -1,9 +1,11 @@
 package swap.go.george.mina.goswap.ui.fragments.homeFragment;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,36 +13,45 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
 import swap.go.george.mina.goswap.rest.apiModel.Category;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
 import swap.go.george.mina.goswap.root.App;
+import swap.go.george.mina.goswap.ui.activities.addItemActivity.AddItemActivity;
+import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivity;
 import swap.go.george.mina.goswap.ui.adapters.HomeAdapter;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class HomeFragment extends Fragment implements HomeFragmentMVP.View{
+public class HomeFragment extends Fragment implements HomeFragmentMVP.View
+,View.OnClickListener{
 
     @BindView(R.id.rv_featured_adds)
     RecyclerView recyclerView;
+    @BindView(R.id.fab_add)
+    FloatingActionButton floatingActionButton;
 
     HomeFragmentMVP.Presenter presenter;
 
     private HomeAdapter adapter;
-    private SharedPreferences pref ;
+    private SharedPreferences pref ,userPref ;
+    private ArrayList<String> categoriesForSpinner = new ArrayList<>();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new HomeFragmentPresenter();
         presenter.setView(this);
         pref = getActivity().getSharedPreferences("location", MODE_PRIVATE);
+        userPref = getActivity().getSharedPreferences("user", MODE_PRIVATE);
     }
 
     @Nullable
@@ -78,8 +89,8 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View{
     }
 
     @Override
-    public void showMessage(int msg) {
-
+    public void showMessage(String msg) {
+        Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -90,13 +101,27 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View{
         mArrayList.add(new HomeRecyclerItems("", "", "special",null));
 
 //        mArrayList.add(new HomeRecyclerItems("Ads", "Selected Ads for you", "ads",null));
-
-        for(Category i : categories)
+        categoriesForSpinner.clear();
+        for(Category i : categories){
+            categoriesForSpinner.add(i.getCategory());
             if(i.getItems().size() != 0) {
                 mArrayList.add(new HomeRecyclerItems(i.getCategory(),"", "normal",i.getItems()));
-        }
+        }}
 
         adapter = new HomeAdapter(mArrayList,getContext());
         recyclerView.setAdapter(adapter);
+    }
+
+    @OnClick({R.id.fab_add})
+    @Override
+    public void onClick(View v) {
+        if(userPref.getString("name",null) == null){
+            this.showMessage("you must login first");
+        }
+        else{
+            Intent i = new Intent(getActivity(),AddItemActivity.class);
+            i.putExtra("categories",categoriesForSpinner);
+            startActivity(i);
+        }
     }
 }

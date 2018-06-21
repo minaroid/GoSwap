@@ -9,7 +9,7 @@ public interface HomeFragmentMVP {
 
     interface View {
 
-        void showMessage(int msg);
+        void showMessage(String msg);
         void notifyAdapter(ArrayList<Category> categories);
     }
 
