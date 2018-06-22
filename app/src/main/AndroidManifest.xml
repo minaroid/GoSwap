@@ -10,9 +10,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/camera_error"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/camera_error"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -64,8 +64,11 @@
             android:authorities="com.facebook.app.FacebookContentProvider1234"
             android:exported="true" />
 
-        <activity android:name=".ui.activities.addItemActivity.AddItemActivity"
-            android:parentActivityName=".ui.activities.homeActivity.HomeActivity"/>
+        <activity
+            android:name=".ui.activities.addItemActivity.AddItemActivity"
+            android:parentActivityName=".ui.activities.homeActivity.HomeActivity" />
+        <activity android:name=".ui.activities.itemActivity.ItemActivity"
+            android:parentActivityName=".ui.activities.homeActivity.HomeActivity"></activity>
     </application>
 
 </manifest>

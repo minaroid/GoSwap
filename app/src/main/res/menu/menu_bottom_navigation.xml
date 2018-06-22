@@ -5,21 +5,21 @@
     <item
         android:id="@+id/bottom_navi_home"
         android:title="@string/bt_navi_home"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_home_outline"
         android:orderInCategory="1"/>
 
 
     <item
         android:id="@+id/bottom_navi_fav"
         android:title="@string/bt_navi_favo"
-        android:icon="@drawable/ic_favorite"
+        android:icon="@drawable/ic_heart_outline"
         android:orderInCategory="2"/>
 
 
     <item
         android:id="@+id/bottom_navi_msg"
         android:title="@string/bt_navi_msg"
-        android:icon="@drawable/ic_chat"
+        android:icon="@drawable/ic_message_text_outline"
         android:orderInCategory="3"/>
 
 

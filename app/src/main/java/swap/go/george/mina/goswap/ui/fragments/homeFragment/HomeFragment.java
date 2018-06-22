@@ -7,10 +7,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -33,7 +38,8 @@ import swap.go.george.mina.goswap.ui.adapters.HomeAdapter;
 import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment implements HomeFragmentMVP.View
-,View.OnClickListener{
+,View.OnClickListener ,SearchView.OnQueryTextListener
+        , SearchView.OnCloseListener{
 
     @BindView(R.id.rv_featured_adds)
     RecyclerView recyclerView;
@@ -45,9 +51,11 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
     private HomeAdapter adapter;
     private SharedPreferences pref ,userPref ;
     private ArrayList<String> categoriesForSpinner = new ArrayList<>();
+    private ArrayList<HomeRecyclerItems> loadedItems = new ArrayList<>() ;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         presenter = new HomeFragmentPresenter();
         presenter.setView(this);
         pref = getActivity().getSharedPreferences("location", MODE_PRIVATE);
@@ -98,7 +106,7 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
 
         ArrayList<HomeRecyclerItems> mArrayList = new ArrayList<>();
 
-        mArrayList.add(new HomeRecyclerItems("", "", "special",null));
+//        mArrayList.add(new HomeRecyclerItems("", "", "special",null));
 
 //        mArrayList.add(new HomeRecyclerItems("Ads", "Selected Ads for you", "ads",null));
         categoriesForSpinner.clear();
@@ -107,9 +115,15 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
             if(i.getItems().size() != 0) {
                 mArrayList.add(new HomeRecyclerItems(i.getCategory(),"", "normal",i.getItems()));
         }}
-
-        adapter = new HomeAdapter(mArrayList,getContext());
+        loadedItems = mArrayList;
+        adapter = new HomeAdapter(getActivity());
+        adapter.swapData(mArrayList);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void openItemActivity(Item item) {
+        Toast.makeText(getContext(),item.getDate(),Toast.LENGTH_SHORT).show();
     }
 
     @OnClick({R.id.fab_add})
@@ -123,5 +137,41 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
             i.putExtra("categories",categoriesForSpinner);
             startActivity(i);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_home_toolbar, menu);
+        MenuItem menuItem = menu.findItem(R.id.menu_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setQueryHint(getResources().getString(R.string.search_hint));
+        searchView.setOnQueryTextListener(HomeFragment.this);
+        searchView.setOnCloseListener(HomeFragment.this);
+    }
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        newText = newText.toLowerCase();
+        ArrayList<HomeRecyclerItems> newList = new ArrayList<HomeRecyclerItems>();
+        ArrayList<HomeRecyclerItems> oldLis = loadedItems;
+        for (HomeRecyclerItems item : oldLis) {
+            String cate = item.getHeader().toLowerCase();
+            if (cate.contains(newText)) {
+                newList.add(item);
+            }
+        }
+        adapter.swapData(newList);
+        return true;
+    }
+
+    @Override
+    public boolean onClose() {
+        adapter.swapData(loadedItems);
+        return true;
     }
 }

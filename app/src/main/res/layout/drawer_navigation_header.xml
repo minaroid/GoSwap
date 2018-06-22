@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="170dp"
     android:padding="5dp"
-    android:background="#DCDEE3"
+    android:background="@color/colorPrimary"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
@@ -13,7 +13,7 @@
         android:id="@+id/img_profile"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_person_outline"
+        android:src="@drawable/ic_login"
         android:scaleType="centerCrop"
         android:layout_gravity="center"
         android:layout_marginTop="5dp" />

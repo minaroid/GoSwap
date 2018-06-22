@@ -1,5 +1,6 @@
 package swap.go.george.mina.goswap.ui.activities.listActivity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -15,9 +17,10 @@ import butterknife.ButterKnife;
 import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
+import swap.go.george.mina.goswap.ui.activities.itemActivity.ItemActivity;
 import swap.go.george.mina.goswap.ui.adapters.HomeItemsAdapter;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity implements ListActivityMVP.View{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -50,4 +53,10 @@ public class ListActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void openItemActivity(Item item) {
+        Intent i = new Intent(this, ItemActivity.class);
+        i.putExtra("item",item);
+        startActivity(i);
+    }
 }

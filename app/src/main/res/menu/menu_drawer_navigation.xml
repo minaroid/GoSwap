@@ -5,31 +5,36 @@
     <item
         android:id="@+id/drawer_navi_home"
         android:title="@string/bt_navi_home"
-        android:icon="@drawable/ic_home" />
+        android:icon="@drawable/ic_home_outline" />
 
 
     <item
         android:id="@+id/drawer_navi_fav"
         android:title="@string/bt_navi_favo"
-        android:icon="@drawable/ic_favorite" />
+        android:icon="@drawable/ic_heart_outline" />
 
+    <item
+        android:id="@+id/drawer_navi_my_ads"
+        android:title="@string/bt_navi_ads"
+        android:icon="@drawable/ic_ad" />
 
     <item
         android:id="@+id/drawer_navi_msg"
         android:title="@string/bt_navi_msg"
-        android:icon="@drawable/ic_chat" />
-
-    <item
-        android:id="@+id/drawer_navi_sett"
-        android:title="@string/bt_navi_sett"
-        android:icon="@drawable/ic_chat" />
+        android:icon="@drawable/ic_message_text_outline" />
 
     <item
         android:id="@+id/drawer_navi_about"
         android:title="@string/bt_navi_about"
-        android:icon="@drawable/ic_chat" />
+        android:icon="@drawable/ic_about" />
+
+    <item
+        android:id="@+id/drawer_navi_sett"
+        android:title="@string/bt_navi_sett"
+        android:icon="@drawable/ic_setting" />
+
     <item
         android:id="@+id/drawer_navi_logout"
         android:title="@string/bt_navi_logout"
-        android:icon="@drawable/ic_chat" />
+        android:icon="@drawable/ic_logout" />
 </menu>

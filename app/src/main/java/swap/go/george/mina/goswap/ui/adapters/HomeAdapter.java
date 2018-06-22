@@ -27,15 +27,14 @@ import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivityMVP;
 
 public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickListener {
 
-    private final ArrayList<HomeRecyclerItems> homeRecyclerItems;
+    private final ArrayList<HomeRecyclerItems> homeRecyclerItems = new ArrayList<>();
     private final Context context;
     private HomeActivityMVP.View activityView ;
     LinearLayoutManager layoutManager ;
 
 
-    public HomeAdapter(ArrayList<HomeRecyclerItems> recyclerItems, final Context context) {
+    public HomeAdapter( final Context context) {
         this.context = context;
-        this.homeRecyclerItems = recyclerItems;
         this.activityView = (HomeActivityMVP.View) context;
 
 //        this.layoutManager = new LinearLayoutManager(context) {
@@ -137,16 +136,20 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
         }
     }
 
-
+    public void swapData(ArrayList<HomeRecyclerItems> homeRecycler){
+        homeRecyclerItems.clear();
+        homeRecyclerItems.addAll(homeRecycler);
+        notifyDataSetChanged();
+    }
     ///
     private ArrayList<SpecialHomeRecyclerItems> loadSpecialList() {
         ArrayList<SpecialHomeRecyclerItems> mArrayList = new ArrayList<>();
 
         if (context != null) {
-            mArrayList.add(new SpecialHomeRecyclerItems("Awesome Cricket Games", "Enjoy seasonal clones and updates", R.drawable.ic_launcher_background, "1/4"));
-            mArrayList.add(new SpecialHomeRecyclerItems("World Heath Day", "Discover clones for a healthy life", R.drawable.ic_launcher_background, "2/4"));
-            mArrayList.add(new SpecialHomeRecyclerItems("Flat 50% off on clones", "Life stories of clone legends", R.drawable.ic_launcher_background, "3/4"));
-            mArrayList.add(new SpecialHomeRecyclerItems("Clone on Big Screen", "Clones about the sport and players", R.drawable.ic_launcher_background, "4/4"));
+            mArrayList.add(new SpecialHomeRecyclerItems("Awesome Cricket Games", "Enjoy seasonal clones and updates", R.drawable.camera_loading, "1/4"));
+            mArrayList.add(new SpecialHomeRecyclerItems("World Heath Day", "Discover clones for a healthy life", R.drawable.camera_loading, "2/4"));
+            mArrayList.add(new SpecialHomeRecyclerItems("Flat 50% off on clones", "Life stories of clone legends", R.drawable.camera_loading, "3/4"));
+            mArrayList.add(new SpecialHomeRecyclerItems("Clone on Big Screen", "Clones about the sport and players", R.drawable.camera_loading, "4/4"));
         }
 
         return mArrayList;
@@ -156,10 +159,10 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
         ArrayList<AdsHomeRecyclerItems> mArrayList = new ArrayList<>();
 
         if (context != null) {
-            mArrayList.add(new AdsHomeRecyclerItems("mobile-1", "500 $", R.drawable.ic_launcher_background));
-            mArrayList.add(new AdsHomeRecyclerItems("mobile-2", "200 $", R.drawable.ic_launcher_background));
-            mArrayList.add(new AdsHomeRecyclerItems("mobile-3", "100 $", R.drawable.ic_launcher_background));
-            mArrayList.add(new AdsHomeRecyclerItems("mobile-4", "50 $", R.drawable.ic_launcher_background));
+//            mArrayList.add(new AdsHomeRecyclerItems("mobile-1", "500 $", R.drawable.ic_launcher_background));
+//            mArrayList.add(new AdsHomeRecyclerItems("mobile-2", "200 $", R.drawable.ic_launcher_background));
+//            mArrayList.add(new AdsHomeRecyclerItems("mobile-3", "100 $", R.drawable.ic_launcher_background));
+//            mArrayList.add(new AdsHomeRecyclerItems("mobile-4", "50 $", R.drawable.ic_launcher_background));
         }
 
         return mArrayList;

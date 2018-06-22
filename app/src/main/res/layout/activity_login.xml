@@ -19,7 +19,7 @@
              android:layout_height="100dp"
              android:layout_marginTop="20dp"
              android:layout_gravity="center"
-             android:background="@color/colorPrimary"/>
+             android:src="@drawable/ic_login"/>
 
         <LinearLayout
             android:layout_marginTop="50dp"
@@ -64,9 +64,11 @@
 
 
             <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:text="Log In"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/nunito_sans_light_italic"
@@ -83,8 +85,8 @@
                 android:layout_height="wrap_content"
                 android:text="OR Login Using Facebook "
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginBottom="5dp"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:fontFamily="@font/montserrat"/>
@@ -95,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="30dp" />
         </LinearLayout>
 

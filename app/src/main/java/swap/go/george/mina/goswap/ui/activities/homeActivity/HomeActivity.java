@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -18,25 +17,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
+import swap.go.george.mina.goswap.rest.apiModel.Item;
 import swap.go.george.mina.goswap.ui.activities.activityLoginAndSignup.LoginActivity;
 import swap.go.george.mina.goswap.ui.activities.activityLoginAndSignup.SignUpActivity;
-import swap.go.george.mina.goswap.ui.activities.addItemActivity.AddItemActivity;
 import swap.go.george.mina.goswap.ui.activities.governatesActivity.GovernateActivity;
+import swap.go.george.mina.goswap.ui.activities.itemActivity.ItemActivity;
 import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivity;
 import swap.go.george.mina.goswap.ui.fragments.chatFragment.ChatFragment;
 import swap.go.george.mina.goswap.ui.fragments.favoritesFragment.FavoritesFragment;
@@ -117,15 +116,17 @@ public class HomeActivity extends AppCompatActivity
             headerUserName.setVisibility(View.VISIBLE);
             headerUserName.setText(userPref.getString("name",null));
             if(!userPref.getString("fbId",null).equals("0")){
-                Glide.with(this)
-                        .asBitmap()
+                Picasso.get()
                         .load("https://graph.facebook.com/" +userPref.getString("fbId",null)
                                 + "/picture?type=large")
+                        .placeholder(R.drawable.ic_cameraa)
+                        .error(R.drawable.ic_cameraa)
                         .into(profileImage);}
             else{
-                Glide.with(this)
-                        .asBitmap()
+                Picasso.get()
                         .load("http://192.168.1.4:5000" +userPref.getString("pic",null))
+                        .placeholder(R.drawable.ic_cameraa)
+                        .error(R.drawable.ic_cameraa)
                         .into(profileImage);
             }
             NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(true);
@@ -219,11 +220,6 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home_toolbar, menu);
-        return true;
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -231,6 +227,7 @@ public class HomeActivity extends AppCompatActivity
             case R.id.drawer_navi_logout :
                 logOut();
                 break;
+
             default:
                 Toast.makeText(this,"df",Toast.LENGTH_SHORT).show();
         }
@@ -249,6 +246,14 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void showMessage(String msg) {
        Snackbar.make(drawerLayout, msg, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void openItemActivity(Item item) {
+        Intent i = new Intent(this, ItemActivity.class);
+        i.putExtra("item",item);
+        startActivity(i);
+
     }
 
     @Override
@@ -276,7 +281,7 @@ public class HomeActivity extends AppCompatActivity
         userEditor.commit();
         loginAndSignUpLayout.setVisibility(View.VISIBLE);
         headerUserName.setVisibility(View.GONE);
-        profileImage.setImageResource(R.drawable.ic_person_outline);
+        profileImage.setImageResource(R.drawable.ic_login);
         NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(false);
 
     }

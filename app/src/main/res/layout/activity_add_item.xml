@@ -296,7 +296,7 @@
                 android:layout_height="60dp"
                 android:text="Submit"
                 android:layout_marginTop="20dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/darkGreen"
                 android:layout_marginBottom="5dp"/>
 
         </LinearLayout>

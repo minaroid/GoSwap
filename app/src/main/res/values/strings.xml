@@ -4,11 +4,14 @@
     <string name="bt_navi_favo">Favorites</string>
     <string name="bt_navi_msg">Messages</string>
     <string name="bt_navi_sett">Settings</string>
+    <string name="bt_navi_swap">Swap your items</string>
+    <string name="bt_navi_ads">My Ads</string>
     <string name="bt_navi_about">About</string>
     <string name="bt_navi_logout">Log out</string>
     <string name="drawer_open">is_opened</string>
     <string name="drawer_closed">is_closed</string>
     <string name="drawer_navi_login_msg">Login or SignUp</string>
+    <string name="search_hint">Search for items</string>
 
 
     //////

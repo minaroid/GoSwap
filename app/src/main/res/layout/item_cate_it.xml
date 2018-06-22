@@ -1,27 +1,27 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cardViewLayout"
-    android:layout_width="165dp"
-    android:layout_height="190dp"
+    android:layout_width="175dp"
+    android:layout_height="185dp"
     android:layout_marginBottom="5dp"
     android:orientation="vertical"
     android:elevation="10dp"
     android:layout_marginLeft="3dp"
-    android:background="#ffff">
+    android:background="@color/lightGray">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="5dp">
     <ImageView
         android:id="@+id/iv_image"
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_launcher_background" />
+        android:scaleType="centerCrop"
+        android:src="@color/colorDarkBackground" />
 
 <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -43,25 +43,36 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="1dp"
+            android:src="@drawable/ic_remove_red_eye"/>
 
         <TextView
-            android:id="@+id/tv_View"
-            android:layout_width="88dp"
+            android:id="@+id/tv_view"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:maxLines="2"
-            android:text="views"
-            android:textSize="12sp"
+            android:text="100"
+            android:layout_marginTop="5dp"
+            android:textSize="10sp"
             android:textStyle="bold"
             android:ellipsize="end" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_date"
-            android:layout_width="48dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:text="Date"
-            android:textStyle="bold"/>
+            android:textSize="13sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="Date" />
 
     </LinearLayout>
 

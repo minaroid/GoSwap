@@ -3,6 +3,7 @@ package swap.go.george.mina.goswap.ui.fragments.homeFragment;
 import java.util.ArrayList;
 
 import swap.go.george.mina.goswap.rest.apiModel.Category;
+import swap.go.george.mina.goswap.rest.apiModel.Item;
 
 public interface HomeFragmentMVP {
 
@@ -11,6 +12,7 @@ public interface HomeFragmentMVP {
 
         void showMessage(String msg);
         void notifyAdapter(ArrayList<Category> categories);
+        void openItemActivity(Item item);
     }
 
     interface Presenter {

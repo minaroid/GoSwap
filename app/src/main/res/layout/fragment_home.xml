@@ -11,5 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:nestedScrollingEnabled="true" />
+
     <include layout="@layout/floating_action_menu" />
+
 </android.support.design.widget.CoordinatorLayout>

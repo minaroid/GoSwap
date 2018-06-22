@@ -16,12 +16,20 @@
     </style>
 
     <style name="BottomNavigationTheme" parent="Widget.Design.BottomNavigationView">
-
-        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorDarkBackground</item>
+        <item name="android:textSize">16sp</item>
+        <item name="elevation">5dp</item>
+        <item name="android:itemIconDisabledAlpha">55</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
     <style name="NavigationTheme" parent="AppTheme">
         <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:layout_marginBottom">2dp</item>
     </style>
 </resources>
