@@ -153,7 +153,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityM
     }
 
     public void uploadToServer(Bitmap bitmap, final String name, final String email, final String pass, final String phone) {
-        String url = "http://192.168.1.2:5000/signup_data";
+        String url = "http://192.168.1.6:5000/signup_data";
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
                 new com.android.volley.Response.Listener<NetworkResponse>() {
                     @Override

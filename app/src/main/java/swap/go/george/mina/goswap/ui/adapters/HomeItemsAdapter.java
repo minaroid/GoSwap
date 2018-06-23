@@ -26,7 +26,7 @@ import swap.go.george.mina.goswap.ui.fragments.homeFragment.HomeFragmentMVP;
 public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>{
     private ArrayList<Item> items;
     private Context mContext;
-    private String baseImageUrl = "http://192.168.1.2:5000";
+    private String baseImageUrl = "http://192.168.1.6:5000";
     private HomeActivityMVP.View homeView;
     private ListActivityMVP.View listActivityView;
     public HomeItemsAdapter(ArrayList<Item> items,Context mContext) {

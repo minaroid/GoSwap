@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#DCDEE3">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar_normal" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_large_list"

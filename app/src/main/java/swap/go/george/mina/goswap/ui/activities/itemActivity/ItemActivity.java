@@ -1,6 +1,7 @@
 package swap.go.george.mina.goswap.ui.activities.itemActivity;
 
 import android.Manifest;
+import android.arch.persistence.room.Room;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -15,19 +16,26 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.relex.circleindicator.CircleIndicator;
 import swap.go.george.mina.goswap.R;
+import swap.go.george.mina.goswap.db.AppDB;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
+import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivity;
 import swap.go.george.mina.goswap.ui.activities.mapActivity.MapActivity;
 import swap.go.george.mina.goswap.ui.adapters.ImagePagerAdapter;
 
@@ -54,6 +62,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     TextView userAds;
     @BindView(R.id.pager_indicator)
     CircleIndicator circleIndicator;
+    @BindView(R.id.img_favorite)
+    ImageView favImage;
 
     private Item item;
     private ImagePagerAdapter pagerAdapter;
@@ -68,7 +78,10 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         item = (Item) getIntent().getSerializableExtra("item");
 
+
         init();
+
+
     }
 
     void init(){
@@ -82,7 +95,10 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         itemViews.setText(String.valueOf(item.getViews()));
         publisherName.setText(item.getAuthName());
         location.setText(item.getItemCity());
-
+        description.setText(item.getItemDesc());
+        if(HomeActivity.appDB.itemDao().getItemById(item.getItemId()).size() > 0){
+            favImage.setImageResource(R.drawable.ic_star_f);
+        }
     }
 
 
@@ -124,7 +140,16 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void makeFavorite() {
-        Toast.makeText(this,"makeFavorite",Toast.LENGTH_SHORT).show();
+        if(HomeActivity.appDB.itemDao().getItemById(item.getItemId()).size() > 0){
+            HomeActivity.appDB.itemDao().deleteItem(item);
+            favImage.setImageResource(R.drawable.ic_star_border);
+            Toast.makeText(this,"removed from your favorites",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            HomeActivity.appDB.itemDao().insertItem(item);
+            favImage.setImageResource(R.drawable.ic_star_f);
+            Toast.makeText(this,"added to your favorites",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void makeReport() {

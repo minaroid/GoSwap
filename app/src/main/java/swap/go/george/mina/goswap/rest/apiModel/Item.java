@@ -1,30 +1,53 @@
 
 package swap.go.george.mina.goswap.rest.apiModel;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import swap.go.george.mina.goswap.db.DataConverter;
 
-public class Item implements Serializable {
 
+@Entity(tableName = "items")
+public class Item implements Serializable{
+
+    @PrimaryKey
+    @ColumnInfo(name = "item_id")
     private int itemId;
+    @ColumnInfo(name = "item_title")
     private String itemTitle;
+    @ColumnInfo(name = "item_des")
     private String itemDesc;
+    @ColumnInfo(name = "item_gover")
     private String itemGover;
+    @ColumnInfo(name = "item_city")
     private String itemCity;
+    @ColumnInfo(name = "item_cate")
     private String itemCate;
+    @ColumnInfo(name = "item_date")
     private String date;
+    @ColumnInfo(name = "item_auth_id")
     private int authId;
+    @ColumnInfo(name = "item_views")
     private int views;
+    @ColumnInfo(name = "item_lat")
     private String lat;
+    @ColumnInfo(name = "item_lon")
     private String lon;
+    @ColumnInfo(name = "item_auth_name")
     private String authName;
+    @ColumnInfo(name = "item_phone")
     private int phone;
+    @ColumnInfo(name = "item_pics")
+    @TypeConverters(DataConverter.class)
     private ArrayList<String> itemPics = null;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public int getItemId() {
         return itemId;
@@ -137,13 +160,4 @@ public class Item implements Serializable {
     public void setItemPics(ArrayList<String> itemPics) {
         this.itemPics = itemPics;
     }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
 }

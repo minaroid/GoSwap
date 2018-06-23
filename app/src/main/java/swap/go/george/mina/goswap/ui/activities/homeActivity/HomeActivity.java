@@ -1,5 +1,6 @@
 package swap.go.george.mina.goswap.ui.activities.homeActivity;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -24,12 +25,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.request.RequestOptions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import swap.go.george.mina.goswap.R;
+import swap.go.george.mina.goswap.db.AppDB;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
 import swap.go.george.mina.goswap.ui.activities.activityLoginAndSignup.LoginActivity;
@@ -70,6 +72,7 @@ public class HomeActivity extends AppCompatActivity
     private CircleImageView profileImage ;
     private Menu NavigatinMenuItems;
     private static final int permissionId = 400;
+    public static AppDB appDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +91,10 @@ public class HomeActivity extends AppCompatActivity
         userEditor = getSharedPreferences("user", MODE_PRIVATE).edit();
         init();
         updateLocation();
+
+        appDB = Room.databaseBuilder(getApplicationContext(),AppDB.class,"itemsDB")
+                .allowMainThreadQueries()
+                .build();
     }
 
     @Override
@@ -116,17 +123,18 @@ public class HomeActivity extends AppCompatActivity
             headerUserName.setVisibility(View.VISIBLE);
             headerUserName.setText(userPref.getString("name",null));
             if(!userPref.getString("fbId",null).equals("0")){
-                Picasso.get()
+                Glide.with(this)
+                        .setDefaultRequestOptions(new RequestOptions()
+                                .error(R.drawable.camera_error))
                         .load("https://graph.facebook.com/" +userPref.getString("fbId",null)
                                 + "/picture?type=large")
-                        .placeholder(R.drawable.ic_cameraa)
-                        .error(R.drawable.ic_cameraa)
                         .into(profileImage);}
             else{
-                Picasso.get()
-                        .load("http://192.168.1.2:5000" +userPref.getString("pic",null))
-                        .placeholder(R.drawable.ic_cameraa)
-                        .error(R.drawable.ic_cameraa)
+
+                Glide.with(this)
+                        .setDefaultRequestOptions(new RequestOptions()
+                                .error(R.drawable.camera_error))
+                        .load("http://192.168.1.6:5000" +userPref.getString("pic",null))
                         .into(profileImage);
             }
             NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(true);
@@ -226,6 +234,18 @@ public class HomeActivity extends AppCompatActivity
         switch (item.getItemId()){
             case R.id.drawer_navi_logout :
                 logOut();
+                break;
+            case R.id.drawer_navi_fav:
+                bottomNavigationView.setSelectedItemId(R.id.bottom_navi_fav);
+                inflateFragment(1);
+                break;
+            case R.id.drawer_navi_home:
+                bottomNavigationView.setSelectedItemId(R.id.bottom_navi_home);
+                inflateFragment(0);
+                break;
+            case R.id.drawer_navi_msg:
+                bottomNavigationView.setSelectedItemId(R.id.bottom_navi_msg);
+                inflateFragment(2);
                 break;
 
             default:
