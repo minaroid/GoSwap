@@ -124,7 +124,7 @@ public class HomeActivity extends AppCompatActivity
                         .into(profileImage);}
             else{
                 Picasso.get()
-                        .load("http://192.168.1.4:5000" +userPref.getString("pic",null))
+                        .load("http://192.168.1.2:5000" +userPref.getString("pic",null))
                         .placeholder(R.drawable.ic_cameraa)
                         .error(R.drawable.ic_cameraa)
                         .into(profileImage);

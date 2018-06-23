@@ -75,7 +75,7 @@ public class AddItemActivityPresenter implements AddItemActivityMVP.Presenter{
         for ( Bitmap b : bitmaps){
 
             final Bitmap  bb= scaleDown(b,500,true);
-            String url = "http://192.168.1.4:5000/upladItemImages";
+            String url = "http://192.168.1.2:5000/upladItemImages";
             VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
                     new com.android.volley.Response.Listener<NetworkResponse>() {
                         @Override
