@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ import swap.go.george.mina.goswap.root.App;
 import swap.go.george.mina.goswap.ui.activities.addItemActivity.AddItemActivity;
 import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivity;
 import swap.go.george.mina.goswap.ui.adapters.HomeAdapter;
+import swap.go.george.mina.goswap.utils.CommonUtils;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -45,13 +48,16 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
     RecyclerView recyclerView;
     @BindView(R.id.fab_add)
     FloatingActionButton floatingActionButton;
-
+    @BindView(R.id.no_connection_layout)
+    LinearLayout noConnection;
     HomeFragmentMVP.Presenter presenter;
 
     private HomeAdapter adapter;
     private SharedPreferences pref ,userPref ;
     private ArrayList<String> categoriesForSpinner = new ArrayList<>();
     private ArrayList<HomeRecyclerItems> loadedItems = new ArrayList<>() ;
+    private CommonUtils utils = new CommonUtils();
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +66,7 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
         presenter.setView(this);
         pref = getActivity().getSharedPreferences("location", MODE_PRIVATE);
         userPref = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        adapter = new HomeAdapter(getActivity());
     }
 
     @Nullable
@@ -67,6 +74,7 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
+
     }
 
     @Override
@@ -81,19 +89,18 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
     @Override
     public void onResume() {
         super.onResume();
-        switch (pref.getInt("location",0)){
-            case 1:
-                 presenter.loadAllCountry();
-                 break;
-            case 2:
-                presenter.loadByGovernate(pref.getString("governate",null));
-                break;
-            case 3:
-                presenter.loadByCity(pref.getString("city",null));
-                break;
-            default:
-                presenter.loadAllCountry();
-        }
+       if(loadedItems.isEmpty()){
+       if(utils.checkConnection(getContext())){
+               loadData();
+       }
+        else {
+           noConnection.setVisibility(View.VISIBLE);
+           floatingActionButton.setVisibility(View.GONE);
+           Toast.makeText(getContext(),R.string.msg_no_connection,Toast.LENGTH_SHORT).show();
+       }}
+       else{
+           recyclerView.setAdapter(adapter);
+       }
     }
 
     @Override
@@ -105,9 +112,7 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
     public void notifyAdapter(ArrayList<Category> categories) {
 
         ArrayList<HomeRecyclerItems> mArrayList = new ArrayList<>();
-
 //        mArrayList.add(new HomeRecyclerItems("", "", "special",null));
-
 //        mArrayList.add(new HomeRecyclerItems("Ads", "Selected Ads for you", "ads",null));
         categoriesForSpinner.clear();
         for(Category i : categories){
@@ -116,7 +121,6 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
                 mArrayList.add(new HomeRecyclerItems(i.getCategory(),"", "normal",i.getItems()));
         }}
         loadedItems = mArrayList;
-        adapter = new HomeAdapter(getActivity());
         adapter.swapData(mArrayList);
         recyclerView.setAdapter(adapter);
     }
@@ -126,17 +130,33 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
         Toast.makeText(getContext(),item.getDate(),Toast.LENGTH_SHORT).show();
     }
 
-    @OnClick({R.id.fab_add})
+    @OnClick({R.id.fab_add,R.id.no_connection_layout})
     @Override
     public void onClick(View v) {
-        if(userPref.getString("name",null) == null){
-            this.showMessage("you must login first");
+        switch (v.getId()){
+            case R.id.fab_add:
+                if(utils.checkConnection(getContext())){
+                if(userPref.getString("name",null) == null){
+                    this.showMessage("you must login first");
+                }
+                else{
+                    Intent i = new Intent(getActivity(),AddItemActivity.class);
+                    i.putExtra("categories",categoriesForSpinner);
+                    startActivity(i);
+                }}
+                else {
+                    Toast.makeText(getContext(),R.string.msg_no_connection,Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.no_connection_layout:
+                if(utils.checkConnection(getContext())){
+                    noConnection.setVisibility(View.GONE);
+                    floatingActionButton.setVisibility(View.VISIBLE);
+                    loadData();
+                }
         }
-        else{
-            Intent i = new Intent(getActivity(),AddItemActivity.class);
-            i.putExtra("categories",categoriesForSpinner);
-            startActivity(i);
-        }
+
+
     }
 
     @Override
@@ -156,16 +176,18 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        newText = newText.toLowerCase();
-        ArrayList<HomeRecyclerItems> newList = new ArrayList<HomeRecyclerItems>();
-        ArrayList<HomeRecyclerItems> oldLis = loadedItems;
-        for (HomeRecyclerItems item : oldLis) {
-            String cate = item.getHeader().toLowerCase();
-            if (cate.contains(newText)) {
-                newList.add(item);
-            }
-        }
-        adapter.swapData(newList);
+       if(loadedItems != null && adapter !=null) {
+           newText = newText.toLowerCase();
+           ArrayList<HomeRecyclerItems> newList = new ArrayList<HomeRecyclerItems>();
+           ArrayList<HomeRecyclerItems> oldLis = loadedItems;
+           for (HomeRecyclerItems item : oldLis) {
+               String cate = item.getHeader().toLowerCase();
+               if (cate.contains(newText)) {
+                   newList.add(item);
+               }
+           }
+           adapter.swapData(newList);
+       }
         return true;
     }
 
@@ -173,5 +195,21 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
     public boolean onClose() {
         adapter.swapData(loadedItems);
         return true;
+    }
+
+    public void loadData(){
+        switch (pref.getInt("location",0)){
+            case 1:
+                presenter.loadAllCountry();
+                break;
+            case 2:
+                presenter.loadByGovernate(pref.getString("governate",null));
+                break;
+            case 3:
+                presenter.loadByCity(pref.getString("city",null));
+                break;
+            default:
+                presenter.loadAllCountry();
+        }
     }
 }

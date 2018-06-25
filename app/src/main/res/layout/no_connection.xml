@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:visibility="gone"
+    android:orientation="vertical"
+
+    android:id="@+id/no_connection_layout">
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_portable_wifi_off"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/gray"
+        android:text="Tab To Retry"/>
+</LinearLayout>

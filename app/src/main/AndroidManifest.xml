@@ -19,7 +19,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/camera_error"
+        android:icon="@drawable/ic_go"
         android:label="@string/app_name"
         android:roundIcon="@drawable/camera_error"
         android:supportsRtl="true"
@@ -40,11 +40,7 @@
         <activity
             android:name=".ui.activities.homeActivity.HomeActivity"
             android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activities.listActivity.ListActivity"
@@ -89,6 +85,28 @@
         <activity
             android:name=".ui.activities.mapActivity.MapActivity"
             android:parentActivityName=".ui.activities.itemActivity.ItemActivity" />
+        <activity
+            android:name=".ui.activities.myAdsActivity.MyAdsActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activities.homeActivity.HomeActivity" />
+        <activity
+            android:name=".ui.activities.myItemActivity.MyItemActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activities.myAdsActivity.MyAdsActivity" />
+
+        <receiver android:name=".utils.ConnectionBroadCast">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".ui.activities.splashActivity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

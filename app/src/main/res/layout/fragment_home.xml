@@ -14,4 +14,6 @@
 
     <include layout="@layout/floating_action_menu" />
 
+    <include layout="@layout/no_connection"/>
+
 </android.support.design.widget.CoordinatorLayout>

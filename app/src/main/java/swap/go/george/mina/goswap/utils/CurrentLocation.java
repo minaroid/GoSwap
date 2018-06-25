@@ -113,6 +113,8 @@ public class CurrentLocation implements
         try {
             governorate = gcd.getFromLocation(userCurrentLocation.getLatitude(), userCurrentLocation.getLongitude(),1)
                     .get(0).getAdminArea();
+//            Log.d("ADfaesfaf",gcd.getFromLocation(userCurrentLocation.getLatitude(), userCurrentLocation.getLongitude(),1)
+//                    .get(0).getc());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -121,6 +121,10 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
         return homeRecyclerItems.size();
     }
 
+    public boolean isEmpty(){
+        return  homeRecyclerItems.isEmpty() ;
+    }
+
     @Override
     public int getItemViewType(int position) {
 

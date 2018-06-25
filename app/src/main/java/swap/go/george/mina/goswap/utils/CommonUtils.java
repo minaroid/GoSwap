@@ -16,6 +16,9 @@
 
 package swap.go.george.mina.goswap.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +37,14 @@ public class CommonUtils {
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    public boolean checkConnection(Context context){
+
+        ConnectivityManager cm = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
+
     }
 
 }

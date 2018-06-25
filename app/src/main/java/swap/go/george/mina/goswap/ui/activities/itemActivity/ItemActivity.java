@@ -6,6 +6,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Contacts;
@@ -32,8 +33,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.relex.circleindicator.CircleIndicator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.db.AppDB;
+import swap.go.george.mina.goswap.rest.API;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
 import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivity;
 import swap.go.george.mina.goswap.ui.activities.mapActivity.MapActivity;
@@ -67,6 +72,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
 
     private Item item;
     private ImagePagerAdapter pagerAdapter;
+    private SharedPreferences userPref ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +83,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         item = (Item) getIntent().getSerializableExtra("item");
-
+        userPref = getSharedPreferences("user", MODE_PRIVATE);
 
         init();
 
@@ -99,6 +105,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         if(HomeActivity.appDB.itemDao().getItemById(item.getItemId()).size() > 0){
             favImage.setImageResource(R.drawable.ic_star_f);
         }
+
+        updateViews();
     }
 
 
@@ -202,5 +210,24 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             Intent it = new Intent(Intent.ACTION_SENDTO,  Uri.parse("smsto:"+String.valueOf(item.getPhone())));
             startActivity(it);
         }
+    }
+
+    public void updateViews(){
+     if(userPref.getString("id",null )!=null){
+     Call<String> call =  API.getItems().
+             updateViews(String.valueOf(item.getItemId()),userPref.getString("id",null ));
+     call.enqueue(new Callback<String>() {
+         @Override
+         public void onResponse(Call<String> call, Response<String> response) {
+
+         }
+
+         @Override
+         public void onFailure(Call<String> call, Throwable t) {
+
+         }
+     });
+
+     }
     }
 }

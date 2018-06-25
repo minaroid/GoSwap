@@ -6,7 +6,7 @@
     tools:context=".ui.activities.citiesActivity.CitiesActivity"
     android:background="#DCDEE3">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar_normal"/>
 
     <LinearLayout
         android:layout_width="match_parent"

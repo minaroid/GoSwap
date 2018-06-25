@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".ui.activities.activityLoginAndSignup.SignUpActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar_normal"/>
 
 
     <ScrollView

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -21,14 +23,19 @@ import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivity;
 import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivityMVP;
 import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivity;
 import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivityMVP;
+import swap.go.george.mina.goswap.ui.activities.myAdsActivity.MyAdsActivity;
+import swap.go.george.mina.goswap.ui.activities.myAdsActivity.MyAdsActivityMVP;
 import swap.go.george.mina.goswap.ui.fragments.homeFragment.HomeFragmentMVP;
+import swap.go.george.mina.goswap.utils.CommonUtils;
 
 public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>{
     private ArrayList<Item> items;
     private Context mContext;
-    private String baseImageUrl = "http://192.168.1.6:5000";
+    private String baseImageUrl = "http://192.168.1.7:5000";
     private HomeActivityMVP.View homeView;
     private ListActivityMVP.View listActivityView;
+    private MyAdsActivityMVP.View myAdsView;
+    CommonUtils utils = new CommonUtils();
     public HomeItemsAdapter(ArrayList<Item> items,Context mContext) {
         this.items = items;
         this.mContext = mContext;
@@ -37,6 +44,9 @@ public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyVi
         }
         else if (mContext.getClass() == ListActivity.class){
             this.listActivityView = (ListActivityMVP.View) mContext;
+        }
+        else if (mContext.getClass() == MyAdsActivity.class){
+            this.myAdsView = (MyAdsActivityMVP.View) mContext;
         }
     }
 
@@ -62,7 +72,7 @@ public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyVi
                 catch(Exception e){
                    e.printStackTrace();
         }
-
+        holder.view.setText(String.valueOf(item.getViews()));
         holder.itemView.setTag(position);
     }
 
@@ -91,13 +101,18 @@ public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyVi
         @Override
         public void onClick(View v) {
             int pos = (int) v.getTag();
-//            Log.d("dfdh",items.get(pos).getItemId().toString());
+            if(utils.checkConnection(mContext)){
             if(homeView != null){
                 homeView.openItemActivity(items.get(pos));
-            }else {
+            }else if (listActivityView != null){
                 listActivityView.openItemActivity(items.get(pos));
             }
-
+            else {
+                myAdsView.openItemActivity(items.get(pos));
+            }}
+            else {
+                Toast.makeText(mContext,R.string.msg_no_connection,Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

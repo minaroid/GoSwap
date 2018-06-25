@@ -11,8 +11,8 @@
     <string name="drawer_open">is_opened</string>
     <string name="drawer_closed">is_closed</string>
     <string name="drawer_navi_login_msg">Login or SignUp</string>
-    <string name="search_hint">Search for items</string>
-
+    <string name="search_hint">Search for category</string>
+    <string name="msg_no_connection">Check your connection</string>
 
     //////
     <string name="heading">Heading</string>

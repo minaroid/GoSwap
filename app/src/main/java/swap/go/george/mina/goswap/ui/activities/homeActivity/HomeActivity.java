@@ -39,9 +39,11 @@ import swap.go.george.mina.goswap.ui.activities.activityLoginAndSignup.SignUpAct
 import swap.go.george.mina.goswap.ui.activities.governatesActivity.GovernateActivity;
 import swap.go.george.mina.goswap.ui.activities.itemActivity.ItemActivity;
 import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivity;
+import swap.go.george.mina.goswap.ui.activities.myAdsActivity.MyAdsActivity;
 import swap.go.george.mina.goswap.ui.fragments.chatFragment.ChatFragment;
 import swap.go.george.mina.goswap.ui.fragments.favoritesFragment.FavoritesFragment;
 import swap.go.george.mina.goswap.ui.fragments.homeFragment.HomeFragment;
+import swap.go.george.mina.goswap.utils.CommonUtils;
 import swap.go.george.mina.goswap.utils.CurrentLocation;
 
 public class HomeActivity extends AppCompatActivity
@@ -73,6 +75,7 @@ public class HomeActivity extends AppCompatActivity
     private Menu NavigatinMenuItems;
     private static final int permissionId = 400;
     public static AppDB appDB;
+    private CommonUtils utils = new CommonUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,10 +137,11 @@ public class HomeActivity extends AppCompatActivity
                 Glide.with(this)
                         .setDefaultRequestOptions(new RequestOptions()
                                 .error(R.drawable.camera_error))
-                        .load("http://192.168.1.6:5000" +userPref.getString("pic",null))
+                        .load("http://192.168.1.7:5000" +userPref.getString("pic",null))
                         .into(profileImage);
             }
             NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(true);
+            NavigatinMenuItems.findItem(R.id.drawer_navi_my_ads).setVisible(true);
         }
     }
 
@@ -185,6 +189,7 @@ public class HomeActivity extends AppCompatActivity
         profileImage = header.findViewById(R.id.img_profile);
         NavigatinMenuItems = navigationView.getMenu();
         NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(false);
+        NavigatinMenuItems.findItem(R.id.drawer_navi_my_ads).setVisible(false);
         loginBtn.setOnClickListener(this);
         signUpBtn.setOnClickListener(this);
 
@@ -247,6 +252,15 @@ public class HomeActivity extends AppCompatActivity
                 bottomNavigationView.setSelectedItemId(R.id.bottom_navi_msg);
                 inflateFragment(2);
                 break;
+            case R.id.drawer_navi_my_ads:
+                if(utils.checkConnection(this)) {
+                    Intent i = new Intent(this, MyAdsActivity.class);
+                    i.putExtra("id", userPref.getString("id", null));
+                    startActivity(i);
+                }else{
+                    Toast.makeText(this,R.string.msg_no_connection,Toast.LENGTH_SHORT).show();
+                }
+                break;
 
             default:
                 Toast.makeText(this,"df",Toast.LENGTH_SHORT).show();
@@ -303,7 +317,7 @@ public class HomeActivity extends AppCompatActivity
         headerUserName.setVisibility(View.GONE);
         profileImage.setImageResource(R.drawable.ic_login);
         NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(false);
-
+        NavigatinMenuItems.findItem(R.id.drawer_navi_my_ads).setVisible(false);
     }
 
     public void updateLocation(){

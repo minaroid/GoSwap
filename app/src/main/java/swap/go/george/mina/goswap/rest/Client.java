@@ -45,5 +45,13 @@ public interface Client {
                                 @Path("date") String date, @Path("auth_id") String authId,
                                 @Path("lat") String lat, @Path("lon") String lon,
                                 @Path("auth_name") String authName, @Path("phone") String phone);
+    @GET("update_views/{itemId}/{userId}/")
+    Call<String> updateViews(@Path("itemId")String itemID,@Path("userId")String userId);
 
+
+    @GET("user_items-for-swap/{userId}/")
+    Call<ArrayList<Category>> getAllItemsByUser(@Path("userId") int query);
+
+    @GET("delete_item/{item_id}/")
+    Call<String> deleteItem(@Path("item_id") String id);
 }

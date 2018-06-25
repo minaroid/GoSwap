@@ -172,7 +172,7 @@ public class AddItemActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(description.getText().toString().length() > 30){
+                if(description.getText().toString().length() > 500){
                     desLayout.setErrorEnabled(true);
                     description.setError("Description length is very big");
                     desImageError.setBackground(getResources().getDrawable(R.drawable.error_badge));
