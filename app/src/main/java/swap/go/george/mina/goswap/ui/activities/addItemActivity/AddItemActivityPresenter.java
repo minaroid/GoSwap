@@ -3,17 +3,11 @@ package swap.go.george.mina.goswap.ui.activities.addItemActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.text.format.DateFormat;
 import android.util.Log;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
@@ -28,7 +22,6 @@ import retrofit2.Response;
 import swap.go.george.mina.goswap.rest.API;
 import swap.go.george.mina.goswap.rest.VolleyMultipartRequest;
 import swap.go.george.mina.goswap.rest.VolleySingleton;
-import swap.go.george.mina.goswap.ui.activities.activityLoginAndSignup.SignUpActivity;
 
 public class AddItemActivityPresenter implements AddItemActivityMVP.Presenter{
     private  AddItemActivityMVP.View view ;

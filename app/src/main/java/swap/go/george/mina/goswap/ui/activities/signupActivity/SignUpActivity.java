@@ -1,4 +1,4 @@
-package swap.go.george.mina.goswap.ui.activities.activityLoginAndSignup;
+package swap.go.george.mina.goswap.ui.activities.signupActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;

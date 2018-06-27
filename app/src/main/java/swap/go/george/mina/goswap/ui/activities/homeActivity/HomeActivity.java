@@ -35,7 +35,7 @@ import swap.go.george.mina.goswap.db.AppDB;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
 import swap.go.george.mina.goswap.ui.activities.loginActivity.LoginActivity;
-import swap.go.george.mina.goswap.ui.activities.activityLoginAndSignup.SignUpActivity;
+import swap.go.george.mina.goswap.ui.activities.signupActivity.SignUpActivity;
 import swap.go.george.mina.goswap.ui.activities.governatesActivity.GovernateActivity;
 import swap.go.george.mina.goswap.ui.activities.itemActivity.ItemActivity;
 import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivity;

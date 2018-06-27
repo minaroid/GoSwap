@@ -50,7 +50,7 @@
             android:name=".ui.activities.citiesActivity.CitiesActivity"
             android:parentActivityName=".ui.activities.governatesActivity.GovernateActivity" />
         <activity
-            android:name=".ui.activities.activityLoginAndSignup.SignUpActivity"
+            android:name=".ui.activities.signupActivity.SignUpActivity"
             android:parentActivityName=".ui.activities.homeActivity.HomeActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
