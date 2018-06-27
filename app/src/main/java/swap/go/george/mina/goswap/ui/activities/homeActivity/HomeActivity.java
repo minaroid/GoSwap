@@ -34,7 +34,7 @@ import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.db.AppDB;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
-import swap.go.george.mina.goswap.ui.activities.activityLoginAndSignup.LoginActivity;
+import swap.go.george.mina.goswap.ui.activities.loginActivity.LoginActivity;
 import swap.go.george.mina.goswap.ui.activities.activityLoginAndSignup.SignUpActivity;
 import swap.go.george.mina.goswap.ui.activities.governatesActivity.GovernateActivity;
 import swap.go.george.mina.goswap.ui.activities.itemActivity.ItemActivity;
@@ -137,7 +137,7 @@ public class HomeActivity extends AppCompatActivity
                 Glide.with(this)
                         .setDefaultRequestOptions(new RequestOptions()
                                 .error(R.drawable.camera_error))
-                        .load("http://192.168.1.7:5000" +userPref.getString("pic",null))
+                        .load("http://192.168.1.4:5000" +userPref.getString("pic",null))
                         .into(profileImage);
             }
             NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(true);

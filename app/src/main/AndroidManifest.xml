@@ -54,7 +54,7 @@
             android:parentActivityName=".ui.activities.homeActivity.HomeActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.activities.activityLoginAndSignup.LoginActivity"
+            android:name=".ui.activities.loginActivity.LoginActivity"
             android:parentActivityName=".ui.activities.homeActivity.HomeActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity

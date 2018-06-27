@@ -41,7 +41,7 @@ public class ImagePagerAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = layoutInflater.inflate(R.layout.item_pager_image, container, false);
         ImageView im = (ImageView) v.findViewById(R.id.pager_image);
-        String photoUrl = "http://192.168.1.7:5000"
+        String photoUrl = "http://192.168.1.4:5000"
                 + images.get(position);
         Glide.with(context)
                 .load(photoUrl)

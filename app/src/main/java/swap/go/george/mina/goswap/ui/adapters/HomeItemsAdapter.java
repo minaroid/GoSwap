@@ -31,7 +31,7 @@ import swap.go.george.mina.goswap.utils.CommonUtils;
 public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>{
     private ArrayList<Item> items;
     private Context mContext;
-    private String baseImageUrl = "http://192.168.1.7:5000";
+    private String baseImageUrl = "http://192.168.1.4:5000";
     private HomeActivityMVP.View homeView;
     private ListActivityMVP.View listActivityView;
     private MyAdsActivityMVP.View myAdsView;
