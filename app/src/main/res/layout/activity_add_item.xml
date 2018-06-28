@@ -10,7 +10,7 @@
     tools:context=".ui.activities.addItemActivity.AddItemActivity"
     android:id="@+id/add_item_layout">
 
-    <include layout="@layout/toolbar"
+    <include layout="@layout/toolbar_normal"
         android:id="@+id/tool_id"/>
 
     <ProgressBar

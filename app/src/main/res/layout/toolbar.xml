@@ -10,7 +10,7 @@
     <android.support.v7.widget.Toolbar
         android:background="@color/colorPrimary"
         android:id="@+id/toolbar"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         android:layout_width="match_parent"
         app:layout_scrollFlags="scroll|enterAlways"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"

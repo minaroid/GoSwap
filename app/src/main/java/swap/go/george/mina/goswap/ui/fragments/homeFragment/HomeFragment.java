@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
     @BindView(R.id.rv_featured_adds)
     RecyclerView recyclerView;
     @BindView(R.id.btn_swap)
-    TextView btnSwap;
+    LinearLayout btnSwap;
     @BindView(R.id.no_connection_layout)
     LinearLayout noConnection;
     private  HomeFragmentMVP.Presenter presenter;
@@ -85,7 +85,6 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false));
     }
-
 
     @Override
     public void onResume() {
