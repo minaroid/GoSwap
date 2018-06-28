@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -46,11 +47,11 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
 
     @BindView(R.id.rv_featured_adds)
     RecyclerView recyclerView;
-    @BindView(R.id.fab_add)
-    FloatingActionButton floatingActionButton;
+    @BindView(R.id.btn_swap)
+    TextView btnSwap;
     @BindView(R.id.no_connection_layout)
     LinearLayout noConnection;
-    HomeFragmentMVP.Presenter presenter;
+    private  HomeFragmentMVP.Presenter presenter;
 
     private HomeAdapter adapter;
     private SharedPreferences pref ,userPref ;
@@ -95,7 +96,7 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
        }
         else {
            noConnection.setVisibility(View.VISIBLE);
-           floatingActionButton.setVisibility(View.GONE);
+           btnSwap.setVisibility(View.GONE);
            Toast.makeText(getContext(),R.string.msg_no_connection,Toast.LENGTH_SHORT).show();
        }}
        else{
@@ -130,11 +131,11 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
         Toast.makeText(getContext(),item.getDate(),Toast.LENGTH_SHORT).show();
     }
 
-    @OnClick({R.id.fab_add,R.id.no_connection_layout})
+    @OnClick({R.id.btn_swap,R.id.no_connection_layout})
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.fab_add:
+            case R.id.btn_swap:
                 if(utils.checkConnection(getContext())){
                 if(userPref.getString("name",null) == null){
                     this.showMessage("you must login first");
@@ -151,7 +152,7 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
             case R.id.no_connection_layout:
                 if(utils.checkConnection(getContext())){
                     noConnection.setVisibility(View.GONE);
-                    floatingActionButton.setVisibility(View.VISIBLE);
+                    btnSwap.setVisibility(View.VISIBLE);
                     loadData();
                 }
         }

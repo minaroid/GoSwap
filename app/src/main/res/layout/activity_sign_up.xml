@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,12 +8,21 @@
     android:orientation="vertical"
     tools:context=".ui.activities.signupActivity.SignUpActivity">
 
-    <include layout="@layout/toolbar_normal"/>
+    <include layout="@layout/toolbar_normal"
+        android:id="@+id/tool"/>
 
+    <ProgressBar
+        android:id="@+id/progress_load"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
 
     <ScrollView
+        android:layout_below="@+id/tool"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
@@ -21,36 +30,68 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:focusableInTouchMode="true">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:orientation="horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imge_signUp"
+        android:id="@+id/img_signUp"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="50dp"
         android:src="@drawable/ic_cameraa"
         android:layout_gravity="center"
-        android:layout_marginBottom="35dp"
-        android:onClick="selectImage"/>
-
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="0dp"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/green"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
         <android.support.design.widget.TextInputLayout
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/text_layout_name">
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/et_name"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:hint ="Your Name"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint ="@string/hint_name"/>
 
         </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:id="@+id/text_layout_email">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint ="@string/hint_email"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+</LinearLayout>
+
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/text_layout_pass"
+            android:layout_marginTop="15dp"
             app:passwordToggleEnabled="true">
 
             <android.support.v7.widget.AppCompatEditText
@@ -58,7 +99,7 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint ="Enter Password"/>
+                android:hint ="@string/hint_password"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -73,21 +114,7 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint ="Confirm Password"/>
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/text_layout_email">
-
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/et_email"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:hint ="Your Email"/>
+                android:hint ="@string/hint_confirm_pass"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -101,28 +128,28 @@
                 android:id="@+id/et_phone"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:hint ="Your Phone"
+                android:hint ="@string/hint_phone_number"
                 android:inputType="numberDecimal"/>
 
         </android.support.design.widget.TextInputLayout>
 
         <TextView
+            android:id="@+id/btn_register_signup"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="SignUp"
+            android:text="@string/btn_register"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:elevation="5dp"
             android:fontFamily="@font/nunito_sans_light_italic"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30dp"
             android:textColor="#FFFF00"
-            android:layout_marginBottom="20dp"
             android:gravity="center"
             android:layout_gravity="center"
-            android:onClick="signUpBtnClicked"
             android:background="@drawable/button_background"/>
 
 </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</RelativeLayout>

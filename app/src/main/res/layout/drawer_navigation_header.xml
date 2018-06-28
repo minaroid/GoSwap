@@ -20,13 +20,12 @@
 
   <LinearLayout
 
-      android:layout_marginTop="20dp"
+      android:layout_marginTop="10dp"
       android:layout_width="match_parent"
       android:layout_marginRight="10dp"
       android:layout_marginLeft="10dp"
-      android:layout_height="30dp"
+      android:layout_height="40dp"
       android:orientation="horizontal"
-      android:layout_gravity="center"
       android:gravity="center"
       android:background="@drawable/button_background">
 
@@ -35,11 +34,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_gravity="center_vertical"
         android:visibility="gone"
         android:fontFamily="@font/montserrat"
         android:textStyle="bold"/>
 
       <LinearLayout
+        android:gravity="center"
         android:id="@+id/linear_headers_btns"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,22 +50,27 @@
           android:id="@+id/tv_login"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="LogIn"
+          android:text="@string/btn_login"
           android:textSize="18sp"
+          android:layout_gravity="center_vertical"
+          android:textColor="@color/white"
           android:fontFamily="@font/montserrat"
           android:textStyle="bold"/>
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="     OR     "
+          android:gravity="center"
           android:layout_gravity="center_vertical"
-          android:textColor="#FFFF00"/>
+          android:textColor="@color/orange"/>
       <TextView
           android:id="@+id/tv_signup"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="SignUp"
+          android:text="@string/btn_register"
           android:textSize="18sp"
+          android:textColor="@color/white"
+          android:layout_gravity="center_vertical"
           android:fontFamily="@font/montserrat"
           android:textStyle="bold"/>
         </LinearLayout>

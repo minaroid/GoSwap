@@ -29,5 +29,6 @@
     <color name="colorInvisibleBlack">#80000000</color>
     <color name="color_trans">#50000000</color>
     <color name="color_white_trans">#50FFFFFF</color>
+    <color name="orange">#FFFF00</color>
 
 </resources>

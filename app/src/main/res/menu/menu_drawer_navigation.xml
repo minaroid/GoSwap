@@ -34,6 +34,11 @@
         android:icon="@drawable/ic_setting" />
 
     <item
+        android:id="@+id/drawer_navi_supp"
+        android:title="@string/bt_navi_support"
+        android:icon="@drawable/ic_sync_problem" />
+
+    <item
         android:id="@+id/drawer_navi_logout"
         android:title="@string/bt_navi_logout"
         android:icon="@drawable/ic_logout" />

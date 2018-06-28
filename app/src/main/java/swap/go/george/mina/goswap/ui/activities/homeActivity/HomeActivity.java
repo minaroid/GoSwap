@@ -47,7 +47,8 @@ import swap.go.george.mina.goswap.utils.CommonUtils;
 import swap.go.george.mina.goswap.utils.CurrentLocation;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener ,HomeActivityMVP.View, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener
+        ,HomeActivityMVP.View, View.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -93,6 +94,7 @@ public class HomeActivity extends AppCompatActivity
         userPref = getSharedPreferences("user", MODE_PRIVATE);
         userEditor = getSharedPreferences("user", MODE_PRIVATE).edit();
         init();
+
         updateLocation();
 
         appDB = Room.databaseBuilder(getApplicationContext(),AppDB.class,"itemsDB")
@@ -261,7 +263,18 @@ public class HomeActivity extends AppCompatActivity
                     Toast.makeText(this,R.string.msg_no_connection,Toast.LENGTH_SHORT).show();
                 }
                 break;
-
+            case R.id.drawer_navi_supp:
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"goswap2018@gmail.com"});
+                i.putExtra(Intent.EXTRA_SUBJECT, "i have problem");
+                i.putExtra(Intent.EXTRA_TEXT   , "MY ID : "+userPref.getString("id",null)+"\n"+"my problem : ");
+                try {
+                    startActivity(Intent.createChooser(i, "Send mail..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(this, R.string.msg_email_not_installed, Toast.LENGTH_SHORT).show();
+                }
+                break;
             default:
                 Toast.makeText(this,"df",Toast.LENGTH_SHORT).show();
         }
