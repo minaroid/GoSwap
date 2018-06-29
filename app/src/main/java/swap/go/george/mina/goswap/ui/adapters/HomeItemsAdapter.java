@@ -3,7 +3,6 @@ package swap.go.george.mina.goswap.ui.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import swap.go.george.mina.goswap.R;
@@ -25,7 +25,8 @@ import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivity;
 import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivityMVP;
 import swap.go.george.mina.goswap.ui.activities.myAdsActivity.MyAdsActivity;
 import swap.go.george.mina.goswap.ui.activities.myAdsActivity.MyAdsActivityMVP;
-import swap.go.george.mina.goswap.ui.fragments.homeFragment.HomeFragmentMVP;
+import swap.go.george.mina.goswap.ui.activities.userAdsActivity.UserAdsActivity;
+import swap.go.george.mina.goswap.ui.activities.userAdsActivity.UserAdsActivityMVP;
 import swap.go.george.mina.goswap.utils.CommonUtils;
 
 public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>{
@@ -35,6 +36,7 @@ public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyVi
     private HomeActivityMVP.View homeView;
     private ListActivityMVP.View listActivityView;
     private MyAdsActivityMVP.View myAdsView;
+    private UserAdsActivityMVP.View userAdsView;
     CommonUtils utils = new CommonUtils();
     public HomeItemsAdapter(ArrayList<Item> items,Context mContext) {
         this.items = items;
@@ -47,6 +49,8 @@ public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyVi
         }
         else if (mContext.getClass() == MyAdsActivity.class){
             this.myAdsView = (MyAdsActivityMVP.View) mContext;
+        } else if (mContext.getClass() == UserAdsActivity.class) {
+            this.userAdsView = (UserAdsActivityMVP.View) mContext;
         }
     }
 
@@ -78,9 +82,23 @@ public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyVi
 
     @Override
     public int getItemCount() {
-        return items.size();
+        if (items != null) {
+            return items.size();
+        } else {
+            return 0;
+        }
     }
 
+    public void swapData(ArrayList<Item> items) {
+        if (this.items != null) {
+            this.items.clear();
+            this.items.addAll(items);
+            notifyDataSetChanged();
+        } else {
+            this.items = items;
+            notifyDataSetChanged();
+        }
+    }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.tv_name)
@@ -106,13 +124,17 @@ public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyVi
                 homeView.openItemActivity(items.get(pos));
             }else if (listActivityView != null){
                 listActivityView.openItemActivity(items.get(pos));
-            }
-            else {
+            } else if (userAdsView != null) {
+                userAdsView.openItemActivity(items.get(pos));
+            } else {
                 myAdsView.openItemActivity(items.get(pos));
-            }}
+            }
+            }
             else {
                 Toast.makeText(mContext,R.string.msg_no_connection,Toast.LENGTH_SHORT).show();
             }
         }
     }
+
+
 }

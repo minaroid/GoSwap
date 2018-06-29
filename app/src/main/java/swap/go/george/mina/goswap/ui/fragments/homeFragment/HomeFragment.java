@@ -5,15 +5,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,11 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,10 +29,7 @@ import butterknife.OnClick;
 import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
 import swap.go.george.mina.goswap.rest.apiModel.Category;
-import swap.go.george.mina.goswap.rest.apiModel.Item;
-import swap.go.george.mina.goswap.root.App;
 import swap.go.george.mina.goswap.ui.activities.addItemActivity.AddItemActivity;
-import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivity;
 import swap.go.george.mina.goswap.ui.adapters.HomeAdapter;
 import swap.go.george.mina.goswap.utils.CommonUtils;
 
@@ -141,6 +133,7 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
             if(i.getItems().size() != 0) {
                 mArrayList.add(new HomeRecyclerItems(i.getCategory(),"", "normal",i.getItems()));
         }}
+        mArrayList.add(new HomeRecyclerItems("", "", "last", null));
         loadedItems = mArrayList;
         adapter.swapData(mArrayList);
         recyclerView.setAdapter(adapter);

@@ -38,6 +38,7 @@ import swap.go.george.mina.goswap.rest.API;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
 import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivity;
 import swap.go.george.mina.goswap.ui.activities.mapActivity.MapActivity;
+import swap.go.george.mina.goswap.ui.activities.userAdsActivity.UserAdsActivity;
 import swap.go.george.mina.goswap.ui.adapters.ImagePagerAdapter;
 
 public class ItemActivity extends AppCompatActivity implements View.OnClickListener{
@@ -119,7 +120,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @OnClick({R.id.callFab,R.id.smsFab,R.id.copyFab,R.id.createContactFab,R.id.tv_item_location
-            ,R.id.report_layout,R.id.img_favorite})
+            , R.id.report_layout, R.id.img_favorite, R.id.tv_user_ads})
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -144,7 +145,17 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.img_favorite:
                 makeFavorite();
                 break;
+            case R.id.tv_user_ads:
+                userAds();
+                break;
         }
+    }
+
+    private void userAds() {
+        Intent i = new Intent(this, UserAdsActivity.class);
+        i.putExtra("id", String.valueOf(item.getAuthId()));
+        i.putExtra("name", item.getAuthName());
+        startActivity(i);
     }
 
     private void makeFavorite() {

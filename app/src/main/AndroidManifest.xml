@@ -32,21 +32,17 @@
 
         <activity
             android:name=".ui.activities.homeActivity.HomeActivity"
-            android:launchMode="singleTop">
-
-        </activity>
+            android:launchMode="singleTop"></activity>
         <activity
             android:name=".ui.activities.listActivity.ListActivity"
             android:parentActivityName=".ui.activities.homeActivity.HomeActivity" />
-
-        <activity android:name=".ui.activities.locationActivity.LocationActivity"
+        <activity
+            android:name=".ui.activities.locationActivity.LocationActivity"
             android:parentActivityName=".ui.activities.homeActivity.HomeActivity" />
-
         <activity
             android:name=".ui.activities.signupActivity.SignUpActivity"
             android:parentActivityName=".ui.activities.homeActivity.HomeActivity"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".ui.activities.loginActivity.LoginActivity"
             android:parentActivityName=".ui.activities.homeActivity.HomeActivity"
@@ -101,6 +97,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activities.userAdsActivity.UserAdsActivity"
+            android:parentActivityName=".ui.activities.itemActivity.ItemActivity" />
+
     </application>
 
 </manifest>

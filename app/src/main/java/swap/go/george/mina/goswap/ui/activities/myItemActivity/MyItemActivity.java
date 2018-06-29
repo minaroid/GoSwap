@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -48,6 +47,7 @@ public class MyItemActivity extends AppCompatActivity implements View.OnClickLis
     private Item item;
     private ImagePagerAdapter pagerAdapter;
     private SharedPreferences userPref ;
+    private SharedPreferences.Editor deletedPref;
     private MyItemActivityMVP.Presenter presenter;
 
     DialogInterface.OnClickListener dialogClickListener =
@@ -74,6 +74,7 @@ public class MyItemActivity extends AppCompatActivity implements View.OnClickLis
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         item = (Item) getIntent().getSerializableExtra("item");
+        deletedPref = getSharedPreferences("itemDeleted", MODE_PRIVATE).edit();
         userPref = getSharedPreferences("user", MODE_PRIVATE);
         presenter = new MyItemActivityPresenter();
         presenter.setView(this);
@@ -124,7 +125,8 @@ public class MyItemActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void finishActivity() {
-        Log.d("asfdqwf","dfqwdf");
+        deletedPref.putBoolean("isDeleted", true);
+        deletedPref.commit();
         this.finish();
     }
 }

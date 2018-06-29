@@ -1,13 +1,9 @@
 package swap.go.george.mina.goswap.ui.adapters;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +17,6 @@ import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.models.AdsHomeRecyclerItems;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
 import swap.go.george.mina.goswap.models.SpecialHomeRecyclerItems;
-import swap.go.george.mina.goswap.rest.apiModel.Category;
-import swap.go.george.mina.goswap.rest.apiModel.Item;
 import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivityMVP;
 
 public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickListener {
@@ -71,6 +65,9 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
             case 3:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ads_and_cate, parent, false);
                 return new MyViewHolder(view);
+            case 4:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rv_last_item, parent, false);
+                return new myEmptyViewHolder(view);
         }
         return null;
     }
@@ -113,6 +110,8 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
                     ((MyViewHolder) holder).btn_more.setOnClickListener(this);
                     ((MyViewHolder) holder).adsCount.setText(String.valueOf(homeRecyclerItems.get(position).getItems().size())+" ads");
                     break;
+                case "last":
+                    break;
             }
         }
     }
@@ -132,6 +131,8 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
                 return 2;
             case "normal":
                 return 3;
+            case "last":
+                return 4;
             default:
                 return -1;
         }
@@ -202,6 +203,13 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
             super(v);
             ButterKnife.bind(this, v);
 
+        }
+    }
+
+    class myEmptyViewHolder extends RecyclerView.ViewHolder {
+
+        public myEmptyViewHolder(View view) {
+            super(view);
         }
     }
 
