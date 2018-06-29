@@ -1,73 +1,115 @@
 package swap.go.george.mina.goswap.ui.adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.rest.apiModel.Governate;
-import swap.go.george.mina.goswap.ui.activities.governatesActivity.GovernatesActivityMVP;
+import swap.go.george.mina.goswap.ui.activities.locationActivity.LocationActivityMVP;
 
-public class GovernatesAdapter extends RecyclerView.Adapter<GovernatesAdapter.MyViewHolder> implements View.OnClickListener {
+public class GovernatesAdapter extends BaseExpandableListAdapter {
 
-    private ArrayList<Governate> governates = new ArrayList<>();
     private Context context;
-    private GovernatesActivityMVP.View activityView;
+    private LocationActivityMVP.View activityView;
+
+    private ArrayList<String> header = new ArrayList<>();
+    private HashMap<String,ArrayList<String>> child = new HashMap<>();
 
     public  GovernatesAdapter(Context context){
         this.context = context ;
-        this.activityView = (GovernatesActivityMVP.View )context;
-    }
-
-    @NonNull
-    @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_governorate, parent, false);
-
-        return new MyViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-        holder.GoverText.setText(governates.get(position).getGovernate());
-        holder.GoverText.setTag(position);
-        holder.GoverText.setOnClickListener(this);
-    }
-
-    @Override
-    public int getItemCount() {
-        return governates.size();
+        this.activityView = (LocationActivityMVP.View) context;
     }
 
     public void swapData(ArrayList<Governate> governates){
-        this.governates = governates;
+        for (Governate g : governates){
+            this.header.add(g.getGovernate());
+            this.child.put(g.getGovernate(),g.getCities());
+        }
         notifyDataSetChanged();
     }
 
+
     @Override
-    public void onClick(View v) {
-        Governate g = governates.get((int)v.getTag());
-        activityView.openCitiesActivity(g.getGovernate(),g.getCities());
+    public int getGroupCount() {
+        return this.header.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
-
-        @BindView(R.id.tv_gover)
-        TextView GoverText;
-
-        public MyViewHolder(View itemView){
-            super(itemView);
-            ButterKnife.bind(this,itemView);
-        }
-
+    @Override
+    public int getChildrenCount(int groupPosition) {
+        return this.child.get(this.header.get(groupPosition)).size();
     }
+
+    @Override
+    public Object getGroup(int groupPosition) {
+        return this.header.get(groupPosition);
+    }
+
+    @Override
+    public Object getChild(int groupPosition, int childPosition) {
+        return this.child.get(this.header.get(groupPosition)).get(childPosition);
+    }
+
+    @Override
+    public long getGroupId(int groupPosition) {
+        return groupPosition;
+    }
+
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
+        return childPosition;
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return false;
+    }
+
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        final String governate = (String) getGroup(groupPosition);
+        LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = inflater.inflate(R.layout.item_governorate,null);
+        TextView text = (TextView) convertView.findViewById(R.id.tv_gover);
+
+        text.setText(governate);
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityView.wholeCityGovernate(governate);
+            }
+        });
+
+        return convertView;
+    }
+
+    @Override
+    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        final String city = (String) getChild(groupPosition,childPosition);
+
+        LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = inflater.inflate(R.layout.item_city,null);
+        TextView text = (TextView) convertView.findViewById(R.id.tv_city);
+
+        text.setText(city);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityView.cityIsSelected(city,header.get(groupPosition));
+            }
+        });
+        return convertView;
+    }
+
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return false;
+    }
+
 }

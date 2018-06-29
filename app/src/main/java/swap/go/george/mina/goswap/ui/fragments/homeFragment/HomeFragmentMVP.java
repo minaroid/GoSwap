@@ -10,9 +10,8 @@ public interface HomeFragmentMVP {
 
     interface View {
 
-        void showMessage(String msg);
+        void showMessage(int msg);
         void notifyAdapter(ArrayList<Category> categories);
-        void openItemActivity(Item item);
     }
 
     interface Presenter {
@@ -25,8 +24,4 @@ public interface HomeFragmentMVP {
 
     }
 
-    interface Model {
-
-//        Observable<HomeItem> results();
-    }
 }

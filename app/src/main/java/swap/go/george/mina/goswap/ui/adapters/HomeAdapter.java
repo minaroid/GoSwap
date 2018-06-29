@@ -92,13 +92,13 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
                     re.setAdapter(adapter);
                     break;
                 case "ads":
-                    ((MyViewHolder) holder).tv_card_header.setText(homeRecyclerItems.get(position).getHeader());
-                    ((MyViewHolder) holder).tv_card_sub_header.setText(homeRecyclerItems.get(position).getSubHeader());
-                    RecyclerView re2 = ((MyViewHolder) holder).recycler_view;
-                    re2.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-                    ArrayList<AdsHomeRecyclerItems> adsList = loadAdsList();
-                    HomeAdsAdapter adapter2 = new HomeAdsAdapter(adsList);
-                    re2.setAdapter(adapter2);
+//                    ((MyViewHolder) holder).tv_card_header.setText(homeRecyclerItems.get(position).getHeader());
+//                    ((MyViewHolder) holder).tv_card_sub_header.setText(homeRecyclerItems.get(position).getSubHeader());
+//                    RecyclerView re2 = ((MyViewHolder) holder).recycler_view;
+//                    re2.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+//                    ArrayList<AdsHomeRecyclerItems> adsList = loadAdsList();
+//                    HomeAdsAdapter adapter2 = new HomeAdsAdapter(adsList);
+//                    re2.setAdapter(adapter2);
 //                    ((MyViewHolder) holder).btn_more.setTag(homeRecyclerItems.get(position));
 //                    ((MyViewHolder) holder).btn_more.setOnClickListener(this);
                     break;
@@ -111,6 +111,7 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
                     re3.setAdapter(adapter3);
                     ((MyViewHolder) holder).btn_more.setTag(homeRecyclerItems.get(position));
                     ((MyViewHolder) holder).btn_more.setOnClickListener(this);
+                    ((MyViewHolder) holder).adsCount.setText(String.valueOf(homeRecyclerItems.get(position).getItems().size())+" ads");
                     break;
             }
         }
@@ -119,10 +120,6 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
     @Override
     public int getItemCount() {
         return homeRecyclerItems.size();
-    }
-
-    public boolean isEmpty(){
-        return  homeRecyclerItems.isEmpty() ;
     }
 
     @Override
@@ -198,6 +195,8 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
         TextView btn_more;
         @BindView(R.id.recycler_view)
         RecyclerView recycler_view;
+        @BindView(R.id.tv_ads_count)
+        TextView adsCount;
 
         public MyViewHolder(View v) {
             super(v);

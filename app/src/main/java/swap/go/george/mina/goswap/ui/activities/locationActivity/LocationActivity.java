@@ -1,22 +1,16 @@
-package swap.go.george.mina.goswap.ui.activities.governatesActivity;
+package swap.go.george.mina.goswap.ui.activities.locationActivity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -24,16 +18,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.rest.apiModel.Governate;
-import swap.go.george.mina.goswap.ui.activities.citiesActivity.CitiesActivity;
 import swap.go.george.mina.goswap.ui.adapters.GovernatesAdapter;
 import swap.go.george.mina.goswap.utils.CurrentLocation;
 
-public class GovernateActivity extends AppCompatActivity implements GovernatesActivityMVP.View, View.OnClickListener {
+public class LocationActivity extends AppCompatActivity implements LocationActivityMVP.View,
+        View.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.rv_governates)
-    RecyclerView recyclerView;
+    @BindView(R.id.el_governates)
+    ExpandableListView expandableListView;
     @BindView(R.id.all_country)
     LinearLayout allCountry;
     @BindView(R.id.current_location)
@@ -42,7 +36,7 @@ public class GovernateActivity extends AppCompatActivity implements GovernatesAc
     TextView textViewCurrentCity;
     @BindView(R.id.tv_current_city)
     TextView textViewCurrentGovernate;
-    private GovernatesActivityMVP.Presenter presenter;
+    private LocationActivityMVP.Presenter presenter;
     private GovernatesAdapter adapter;
     private SharedPreferences.Editor editor;
     private SharedPreferences currentLocationPref;
@@ -55,12 +49,10 @@ public class GovernateActivity extends AppCompatActivity implements GovernatesAc
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        presenter = new GovernateActivityPresenter();
+        presenter = new LocationActivityPresenter();
         presenter.setView(this);
-        presenter.loadData();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GovernatesAdapter(this);
-        recyclerView.setAdapter(adapter);
+        expandableListView.setAdapter(adapter);
         allCountry.setOnClickListener(this);
         currentLocationLayout.setOnClickListener(this);
         currentLocationPref = getSharedPreferences("currentLocation", MODE_PRIVATE);
@@ -70,7 +62,7 @@ public class GovernateActivity extends AppCompatActivity implements GovernatesAc
             textViewCurrentCity.setText(currentLocationPref.getString("city",null));
             textViewCurrentGovernate.setText(currentLocationPref.getString("governate",null));
             }
-
+        presenter.loadData();
     }
 
     @Override
@@ -78,41 +70,31 @@ public class GovernateActivity extends AppCompatActivity implements GovernatesAc
         adapter.swapData(governates);
     }
 
+
     @Override
-    public void finishActivity() {
+    public void wholeCityGovernate(String governate) {
+        editor.putBoolean("locationIsChanged",true);
+        editor.putInt("location", 2);
+        editor.putString("governate", governate);
+        editor.apply();
         finish();
     }
 
     @Override
-    public void openCitiesActivity(String governate, ArrayList<String> cities) {
-        Intent i = new Intent(this, CitiesActivity.class);
-        i.putExtra("governate",governate);
-        i.putExtra("cities",cities);
-        startActivity(i);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-
-            case android.R.id.home :
-                this.onBackPressed();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-
+    public void cityIsSelected(String city, String governate) {
+        editor.putBoolean("locationIsChanged",true);
+        editor.putInt("location", 3);
+        editor.putString("governate",governate);
+        editor.putString("city",city);
+        editor.apply();
+        finish();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.all_country :
+                editor.putBoolean("locationIsChanged",true);
                 editor.putInt("location", 1);
                 editor.apply();
                 finish();
@@ -123,13 +105,13 @@ public class GovernateActivity extends AppCompatActivity implements GovernatesAc
                         CurrentLocation location = new CurrentLocation(this);
                     }
                 }
+                editor.putBoolean("locationIsChanged",true);
                 editor.putInt("location", 3);
                 editor.putString("governate",currentLocationPref.getString("governate",null));
                 editor.putString("city",currentLocationPref.getString("city",null));
                 editor.apply();
                 finish();
                 break;
-
         }
     }
 
@@ -143,7 +125,6 @@ public class GovernateActivity extends AppCompatActivity implements GovernatesAc
         }
         return false;
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

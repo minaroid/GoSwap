@@ -10,13 +10,6 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
-    -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_go"
@@ -45,14 +38,15 @@
         <activity
             android:name=".ui.activities.listActivity.ListActivity"
             android:parentActivityName=".ui.activities.homeActivity.HomeActivity" />
-        <activity android:name=".ui.activities.governatesActivity.GovernateActivity" />
-        <activity
-            android:name=".ui.activities.citiesActivity.CitiesActivity"
-            android:parentActivityName=".ui.activities.governatesActivity.GovernateActivity" />
+
+        <activity android:name=".ui.activities.locationActivity.LocationActivity"
+            android:parentActivityName=".ui.activities.homeActivity.HomeActivity" />
+
         <activity
             android:name=".ui.activities.signupActivity.SignUpActivity"
             android:parentActivityName=".ui.activities.homeActivity.HomeActivity"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".ui.activities.loginActivity.LoginActivity"
             android:parentActivityName=".ui.activities.homeActivity.HomeActivity"

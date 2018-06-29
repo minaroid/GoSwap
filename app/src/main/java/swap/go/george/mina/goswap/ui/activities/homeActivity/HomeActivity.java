@@ -34,9 +34,9 @@ import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.db.AppDB;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
+import swap.go.george.mina.goswap.ui.activities.locationActivity.LocationActivity;
 import swap.go.george.mina.goswap.ui.activities.loginActivity.LoginActivity;
 import swap.go.george.mina.goswap.ui.activities.signupActivity.SignUpActivity;
-import swap.go.george.mina.goswap.ui.activities.governatesActivity.GovernateActivity;
 import swap.go.george.mina.goswap.ui.activities.itemActivity.ItemActivity;
 import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivity;
 import swap.go.george.mina.goswap.ui.activities.myAdsActivity.MyAdsActivity;
@@ -308,10 +308,10 @@ public class HomeActivity extends AppCompatActivity
 
         switch (v.getId()){
             case R.id.toolbar_title :
-                startActivity(new Intent(HomeActivity.this, GovernateActivity.class));
+                startActivity(new Intent(HomeActivity.this, LocationActivity.class));
                 break;
             case R.id.toolbar_sub_title :
-                startActivity(new Intent(HomeActivity.this, GovernateActivity.class));
+                startActivity(new Intent(HomeActivity.this, LocationActivity.class));
                 break;
             case R.id.tv_login:
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));

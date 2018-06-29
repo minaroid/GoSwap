@@ -59,4 +59,5 @@
     <string name="msg_user_is_exist">this user is exist try forget password</string>
     <string name="msg_email_not_installed">There are no email clients installed.</string>
     <string name="btn_sawp">Swap your Item</string>
+    <string name="msg_must_login">you must login first</string>
 </resources>

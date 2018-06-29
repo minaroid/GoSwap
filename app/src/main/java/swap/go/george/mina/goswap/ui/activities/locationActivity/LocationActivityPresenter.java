@@ -1,4 +1,4 @@
-package swap.go.george.mina.goswap.ui.activities.governatesActivity;
+package swap.go.george.mina.goswap.ui.activities.locationActivity;
 
 import java.util.ArrayList;
 
@@ -6,12 +6,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import swap.go.george.mina.goswap.rest.API;
-import swap.go.george.mina.goswap.rest.apiModel.Category;
 import swap.go.george.mina.goswap.rest.apiModel.Governate;
 
-public class GovernateActivityPresenter implements GovernatesActivityMVP.Presenter{
+public class LocationActivityPresenter implements LocationActivityMVP.Presenter{
 
-     private GovernatesActivityMVP.View view;
+     private LocationActivityMVP.View view;
 
     @Override
     public void loadData() {
@@ -32,7 +31,7 @@ public class GovernateActivityPresenter implements GovernatesActivityMVP.Present
     }
 
     @Override
-    public void setView(GovernatesActivityMVP.View view) {
+    public void setView(LocationActivityMVP.View view) {
           this.view = view;
     }
 }
