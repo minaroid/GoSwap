@@ -78,6 +78,7 @@ dependencies {
 
     implementation 'com.android.volley:volley:1.0.0'
     implementation 'me.relex:circleindicator:1.2.2@aar'
+    implementation 'com.google.android.gms:play-services-ads:15.0.0'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.google.android.gms:play-services-places:15.0.1'
     implementation 'com.akexorcist:googledirectionlibrary:1.0.5'

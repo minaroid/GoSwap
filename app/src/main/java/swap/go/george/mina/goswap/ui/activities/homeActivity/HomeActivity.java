@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -34,12 +35,12 @@ import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.db.AppDB;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
-import swap.go.george.mina.goswap.ui.activities.locationActivity.LocationActivity;
-import swap.go.george.mina.goswap.ui.activities.loginActivity.LoginActivity;
-import swap.go.george.mina.goswap.ui.activities.signupActivity.SignUpActivity;
 import swap.go.george.mina.goswap.ui.activities.itemActivity.ItemActivity;
 import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivity;
+import swap.go.george.mina.goswap.ui.activities.locationActivity.LocationActivity;
+import swap.go.george.mina.goswap.ui.activities.loginActivity.LoginActivity;
 import swap.go.george.mina.goswap.ui.activities.myAdsActivity.MyAdsActivity;
+import swap.go.george.mina.goswap.ui.activities.signupActivity.SignUpActivity;
 import swap.go.george.mina.goswap.ui.fragments.chatFragment.ChatFragment;
 import swap.go.george.mina.goswap.ui.fragments.favoritesFragment.FavoritesFragment;
 import swap.go.george.mina.goswap.ui.fragments.homeFragment.HomeFragment;
@@ -267,7 +268,7 @@ public class HomeActivity extends AppCompatActivity
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
                 i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"goswap2018@gmail.com"});
-                i.putExtra(Intent.EXTRA_SUBJECT, "i have problem");
+                i.putExtra(Intent.EXTRA_SUBJECT, "Problem");
                 i.putExtra(Intent.EXTRA_TEXT   , "MY ID : "+userPref.getString("id",null)+"\n"+"my problem : ");
                 try {
                     startActivity(Intent.createChooser(i, "Send mail..."));

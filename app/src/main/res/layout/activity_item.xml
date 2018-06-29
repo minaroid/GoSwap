@@ -269,11 +269,10 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_marginLeft="6dp"
                     android:gravity="center"
-                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp">
 
                     <TextView
@@ -281,25 +280,39 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Default id"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:textStyle="bold"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_user_ads"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="all ads of this user"
+                        android:textColor="@color/blue" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_user_ads"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="4dp"
-                    android:textColor="@color/blue"
-                    android:text="all ads of this user"/>
+
             </LinearLayout>
 
 
         </android.support.v7.widget.CardView>
 
+           <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+               android:id="@+id/adView"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               ads:adSize="BANNER"
+               ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
 
+           </com.google.android.gms.ads.AdView>
 
 
        </LinearLayout>
@@ -311,13 +324,15 @@
      <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/color_white_trans"
-        android:text="CHAT NOW"
+         android:layout_marginLeft="3dp"
+         android:layout_marginRight="3dp"
         android:textSize="18sp"
+         android:background="@color/colorPrimary"
+         android:text="@string/btn_chat_now"
         android:layout_gravity="bottom"
         android:layout_below="@+id/nested_scrolling"
         android:fontFamily="@font/montserrat"
-        android:textColor="@color/colorPrimary" />
+         android:textColor="@color/white" />
 
 
 </android.support.design.widget.CoordinatorLayout>

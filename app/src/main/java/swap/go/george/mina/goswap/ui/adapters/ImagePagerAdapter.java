@@ -10,19 +10,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
-import swap.go.george.mina.goswap.R;
 
 import java.util.ArrayList;
+
+import swap.go.george.mina.goswap.R;
+import swap.go.george.mina.goswap.ui.dialogs.ImagesPagerDialog;
 
 public class ImagePagerAdapter extends PagerAdapter {
     private LayoutInflater layoutInflater;
     private Context context;
+    private boolean largeSize = false;
 
     private ArrayList<String> images = new ArrayList<>();
 
-    public ImagePagerAdapter(Context context,ArrayList<String> images) {
+    public ImagePagerAdapter(Context context, ArrayList<String> images, boolean largeSize) {
         this.context = context;
         this.images = images;
+        this.largeSize = largeSize;
     }
 
     @Override
@@ -32,20 +36,33 @@ public class ImagePagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return (view == (LinearLayout) object);
+        return (view == object);
     }
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = layoutInflater.inflate(R.layout.item_pager_image, container, false);
-        ImageView im = (ImageView) v.findViewById(R.id.pager_image);
+        View v;
+        if (largeSize) {
+            v = layoutInflater.inflate(R.layout.item_pager_image2, container, false);
+        } else {
+            v = layoutInflater.inflate(R.layout.item_pager_image, container, false);
+        }
+
+        ImageView im = v.findViewById(R.id.pager_image);
         String photoUrl = "http://192.168.1.4:5000"
                 + images.get(position);
         Glide.with(context)
                 .load(photoUrl)
                 .into(im);
+        im.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImagesPagerDialog dialog = new ImagesPagerDialog(context, images, position);
+                dialog.show();
+            }
+        });
         container.addView(v);
         return v;
     }

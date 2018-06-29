@@ -3,15 +3,17 @@ package swap.go.george.mina.goswap.ui.activities.myItemActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +21,6 @@ import butterknife.OnClick;
 import me.relex.circleindicator.CircleIndicator;
 import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
-import swap.go.george.mina.goswap.ui.activities.addItemActivity.AddItemActivity;
 import swap.go.george.mina.goswap.ui.activities.mapActivity.MapActivity;
 import swap.go.george.mina.goswap.ui.adapters.ImagePagerAdapter;
 
@@ -81,7 +82,7 @@ public class MyItemActivity extends AppCompatActivity implements View.OnClickLis
     }
     void init(){
 
-        pagerAdapter = new ImagePagerAdapter(this,item.getItemPics());
+        pagerAdapter = new ImagePagerAdapter(this, item.getItemPics(), false);
         viewPager.setAdapter(pagerAdapter);
         itemTitle.setText(item.getItemTitle());
         circleIndicator.setViewPager(viewPager);
@@ -90,6 +91,10 @@ public class MyItemActivity extends AppCompatActivity implements View.OnClickLis
         itemViews.setText(String.valueOf(item.getViews()));
         location.setText(item.getItemCity());
         description.setText(item.getItemDesc());
+
+        AdView adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
     }
     @OnClick({R.id.tv_item_location,R.id.btn_delete})

@@ -1,7 +1,5 @@
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     style="@style/CardView"
     android:layout_width="match_parent"
@@ -34,30 +32,29 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:weightSum="2">
+                android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:orientation="horizontal">
                 <TextView
                     android:id="@+id/header"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight=".5"
                     android:text="@string/heading"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/darkRed"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:ignore="NestedWeights" />
+                    android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tv_ads_count"
-                        android:layout_width="0dp"
-                        android:layout_weight=".5"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/montserrat"
+                        android:gravity="center"
                         android:text="100 ads"/>
                 </LinearLayout>
                 <TextView

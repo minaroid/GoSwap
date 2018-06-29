@@ -1,7 +1,6 @@
 package swap.go.george.mina.goswap.ui.activities.itemActivity;
 
 import android.Manifest;
-import android.arch.persistence.room.Room;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -9,25 +8,23 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +34,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import swap.go.george.mina.goswap.R;
-import swap.go.george.mina.goswap.db.AppDB;
 import swap.go.george.mina.goswap.rest.API;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
 import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivity;
@@ -92,7 +88,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
 
     void init(){
 
-        pagerAdapter = new ImagePagerAdapter(this,item.getItemPics());
+        pagerAdapter = new ImagePagerAdapter(this, item.getItemPics(), false);
         viewPager.setAdapter(pagerAdapter);
         itemTitle.setText(item.getItemTitle());
         circleIndicator.setViewPager(viewPager);
@@ -107,6 +103,10 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         updateViews();
+
+        AdView adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
 
@@ -161,7 +161,18 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void makeReport() {
-        Toast.makeText(this,"Reported",Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"goswap2018@gmail.com"});
+        i.putExtra(Intent.EXTRA_SUBJECT, "Report");
+        i.putExtra(Intent.EXTRA_TEXT, "MY ID : " + userPref.getString("id", null) + "\n" +
+                "Item ID : " + String.valueOf(item.getItemId()) + "\n" +
+                "why you think it is spam ? : ");
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(this, R.string.msg_email_not_installed, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openMap() {

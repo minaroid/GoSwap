@@ -29,6 +29,8 @@
     <string name="facebook_app_id">2658875981005086</string>
     <string name="fb_login_protocol_scheme">fb2658875981005086</string>
     <string name="maps_api_key">AIzaSyB3zHanTpk-uzNStEMeC1Xqtqx85Xsebf4</string>
+
+
     <string name="title_activity_maps">Map</string>
     <string name="btn_register">REGISTER</string>
     <string name="tv_login_with">Login with</string>
@@ -60,4 +62,5 @@
     <string name="msg_email_not_installed">There are no email clients installed.</string>
     <string name="btn_sawp">Swap your Item</string>
     <string name="msg_must_login">you must login first</string>
+    <string name="btn_chat_now">CHAT NOW</string>
 </resources>
