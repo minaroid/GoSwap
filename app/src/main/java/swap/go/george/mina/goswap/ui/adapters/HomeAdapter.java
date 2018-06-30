@@ -101,7 +101,7 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
                     break;
                 case "normal":
                     ((MyViewHolder) holder).tv_card_header.setText(homeRecyclerItems.get(position).getHeader());
-                    ((MyViewHolder) holder).tv_card_sub_header.setText(homeRecyclerItems.get(position).getSubHeader());
+//                    ((MyViewHolder) holder).tv_card_sub_header.setText(homeRecyclerItems.get(position).getSubHeader());
                     RecyclerView re3 = ((MyViewHolder) holder).recycler_view;
                     re3.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
                     HomeItemsAdapter adapter3 = new HomeItemsAdapter(homeRecyclerItems.get(position).getItems(),context);
@@ -190,8 +190,8 @@ public class HomeAdapter extends RecyclerView.Adapter implements View.OnClickLis
     class MyViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.header)
         TextView tv_card_header;
-        @BindView(R.id.sub_header)
-        TextView tv_card_sub_header;
+        //        @BindView(R.id.sub_header)
+//        TextView tv_card_sub_header;
         @BindView(R.id.more)
         TextView btn_more;
         @BindView(R.id.recycler_view)

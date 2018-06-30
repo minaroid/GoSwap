@@ -30,7 +30,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="2.5"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
                 <LinearLayout
@@ -48,22 +48,24 @@
                     android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_ads_count"
+
                         android:layout_width="wrap_content"
                         android:layout_gravity="center"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:fontFamily="@font/montserrat"
                         android:gravity="center"
+                        android:visibility="gone"
                         android:text="100 ads"/>
                 </LinearLayout>
                 <TextView
-                    android:id="@+id/sub_header"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/tv_ads_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
                     android:layout_weight="1"
-                    android:visibility="gone"
-                    android:text="@string/subheading"
+                    android:fontFamily="@font/montserrat"
+                    android:text="100 ads"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -72,10 +74,10 @@
                 android:id="@+id/more"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight=".5"
                 android:layout_marginRight="6dp"
                 android:textStyle="bold"
-                android:gravity="center_vertical|end"
+                android:gravity="top|end"
                 android:text="@string/more_button"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="12sp" />

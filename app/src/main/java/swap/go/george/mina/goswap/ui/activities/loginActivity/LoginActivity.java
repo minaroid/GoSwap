@@ -2,15 +2,18 @@ package swap.go.george.mina.goswap.ui.activities.loginActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -33,6 +36,8 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityMVP
     AppCompatEditText pass;
     @BindView(R.id.tv_login_fb)
     LoginButton fbsLoginUpButton;
+    @BindView(R.id.login_layout)
+    LinearLayout loginLayout;
     private CallbackManager callbackManager;
     private LoginActivityMVP.Presenter presenter;
 
@@ -85,16 +90,16 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityMVP
     public void showMessage(int msg) {
         switch (msg){
             case 0:
-                Toast.makeText(this, R.string.msg_incorrect_pass,Toast.LENGTH_SHORT).show();
+                Snackbar.make(loginLayout, R.string.msg_incorrect_pass, Snackbar.LENGTH_SHORT).show();
                 break;
             case 1 :
-                Toast.makeText(this, R.string.msg_mail_exist,Toast.LENGTH_SHORT).show();
+                Snackbar.make(loginLayout, R.string.msg_mail_exist, Snackbar.LENGTH_SHORT).show();
                 break;
             case 2 :
-                Toast.makeText(this, R.string.msg_have_problem,Toast.LENGTH_SHORT).show();
+                Snackbar.make(loginLayout, R.string.msg_have_problem, Snackbar.LENGTH_SHORT).show();
                 break;
             case 3 :
-                Toast.makeText(this, R.string.msg_fb_cant_login,Toast.LENGTH_SHORT).show();
+                Snackbar.make(loginLayout, R.string.msg_fb_cant_login, Snackbar.LENGTH_SHORT).show();
                 break;
         }
 

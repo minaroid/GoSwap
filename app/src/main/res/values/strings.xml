@@ -66,4 +66,6 @@
     <string name="warn_delete_account">You will lose all your Ads, Favorites and Messages after deleting your Account</string>
     <string name="btn_delete_account">Delete Account</string>
     <string name="warn_delete_confirm">Are you sure you want delete your account !?</string>
+    <string name="msg_fav_removed">removed from your favorites</string>
+    <string name="msg_fav_added">added to your favorites</string>
 </resources>

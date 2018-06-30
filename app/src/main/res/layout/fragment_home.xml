@@ -4,25 +4,37 @@
     android:layout_height="match_parent"
     android:background="#DCDEE3"
     android:id="@+id/fragment_home">
+
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_featured_adds"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:nestedScrollingEnabled="true" />
+
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_load"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
     <include layout="@layout/no_connection"/>
+
     <LinearLayout
         android:id="@+id/btn_swap"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/rectangle">
         <ImageView
             android:layout_width="wrap_content"

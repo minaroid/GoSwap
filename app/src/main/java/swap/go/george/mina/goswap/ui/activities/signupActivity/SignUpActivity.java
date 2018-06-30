@@ -1,15 +1,12 @@
 package swap.go.george.mina.goswap.ui.activities.signupActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
@@ -17,26 +14,15 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.VolleyError;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.widget.RelativeLayout;
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,11 +30,7 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import droidninja.filepicker.FilePickerBuilder;
 import droidninja.filepicker.FilePickerConst;
-import retrofit2.Call;
 import swap.go.george.mina.goswap.R;
-import swap.go.george.mina.goswap.rest.VolleyMultipartRequest;
-import swap.go.george.mina.goswap.rest.VolleySingleton;
-import swap.go.george.mina.goswap.rest.apiModel.UserInfo;
 import swap.go.george.mina.goswap.utils.CommonUtils;
 
 public class SignUpActivity extends AppCompatActivity implements SignUpActivityMVP.View
@@ -80,6 +62,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityM
     TextInputLayout phoneLayout;
     @BindView(R.id.progress_load)
     ProgressBar progressBar;
+    @BindView(R.id.register_layout)
+    RelativeLayout registerLayout;
 
     private Bitmap selectedImage;
     private SignUpActivityMVP.Presenter presenter;
@@ -133,10 +117,10 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityM
         switch (msg){
 
             case 0:
-                Toast.makeText(this, R.string.msg_user_is_exist,Toast.LENGTH_SHORT).show();
+                Snackbar.make(registerLayout, R.string.msg_user_is_exist, Snackbar.LENGTH_SHORT).show();
                 break;
             case 1:
-                Toast.makeText(this,R.string.msg_have_problem,Toast.LENGTH_SHORT).show();
+                Snackbar.make(registerLayout, R.string.msg_have_problem, Snackbar.LENGTH_SHORT).show();
                 break;
         }
 
@@ -180,7 +164,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityM
 
         if(selectedImage == null){
             imageView.setBorderColor(getResources().getColor(R.color.red));
-            Toast.makeText(this, R.string.error_image,Toast.LENGTH_SHORT).show();
+            Snackbar.make(registerLayout, R.string.error_image, Snackbar.LENGTH_SHORT).show();
             return false;
         }
         return true;

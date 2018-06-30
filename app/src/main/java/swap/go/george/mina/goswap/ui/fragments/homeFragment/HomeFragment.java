@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -49,6 +50,8 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
     SwipeRefreshLayout swapRefresh;
     @BindView(R.id.fragment_home)
     RelativeLayout fragmentLayout;
+    @BindView(R.id.progress_load)
+    ProgressBar progressBar;
     private  HomeFragmentMVP.Presenter presenter;
 
     private HomeAdapter adapter;
@@ -93,9 +96,11 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
 
            if (loadedItems.isEmpty()) {
                if (utils.checkConnection(getContext())) {
+                   progressBar.setVisibility(View.VISIBLE);
                    loadData();
                } else {
                    noConnection.setVisibility(View.VISIBLE);
+                   progressBar.setVisibility(View.GONE);
                    btnSwap.setVisibility(View.GONE);
                    Toast.makeText(getContext(), R.string.msg_no_connection, Toast.LENGTH_SHORT).show();
                }
@@ -108,6 +113,7 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
                prefEditor.putBoolean("locationIsChanged",false);
                prefEditor.commit();
         }
+
     }
 
     @Override
@@ -136,7 +142,9 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
         mArrayList.add(new HomeRecyclerItems("", "", "last", null));
         loadedItems = mArrayList;
         adapter.swapData(mArrayList);
+        progressBar.setVisibility(View.GONE);
         recyclerView.setAdapter(adapter);
+
     }
 
     @OnClick({R.id.btn_swap,R.id.no_connection_layout})

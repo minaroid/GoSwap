@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Contacts;
 import android.provider.ContactsContract;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -66,6 +68,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     CircleIndicator circleIndicator;
     @BindView(R.id.img_favorite)
     ImageView favImage;
+    @BindView(R.id.item_layout)
+    CoordinatorLayout itemLayout;
 
     private Item item;
     private ImagePagerAdapter pagerAdapter;
@@ -162,12 +166,13 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         if(HomeActivity.appDB.itemDao().getItemById(item.getItemId()).size() > 0){
             HomeActivity.appDB.itemDao().deleteItem(item);
             favImage.setImageResource(R.drawable.ic_star_border);
-            Toast.makeText(this,"removed from your favorites",Toast.LENGTH_SHORT).show();
+            Snackbar.make(itemLayout, R.string.msg_fav_removed, Snackbar.LENGTH_SHORT).show();
+
         }
         else{
             HomeActivity.appDB.itemDao().insertItem(item);
             favImage.setImageResource(R.drawable.ic_star_f);
-            Toast.makeText(this,"added to your favorites",Toast.LENGTH_SHORT).show();
+            Snackbar.make(itemLayout, R.string.msg_fav_added, Snackbar.LENGTH_SHORT).show();
         }
     }
 

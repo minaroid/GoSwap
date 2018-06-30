@@ -47,7 +47,6 @@ import swap.go.george.mina.goswap.ui.fragments.favoritesFragment.FavoritesFragme
 import swap.go.george.mina.goswap.ui.fragments.homeFragment.HomeFragment;
 import swap.go.george.mina.goswap.utils.CommonUtils;
 import swap.go.george.mina.goswap.utils.CurrentLocation;
-import swap.go.george.mina.goswap.utils.MessagesService;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
@@ -104,7 +103,7 @@ public class HomeActivity extends AppCompatActivity
                 .allowMainThreadQueries()
                 .build();
 
-        startService(new Intent(this, MessagesService.class));
+//        startService(new Intent(this, MessagesService.class));
     }
 
     @Override
