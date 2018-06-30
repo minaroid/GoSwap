@@ -40,12 +40,14 @@ import swap.go.george.mina.goswap.ui.activities.listActivity.ListActivity;
 import swap.go.george.mina.goswap.ui.activities.locationActivity.LocationActivity;
 import swap.go.george.mina.goswap.ui.activities.loginActivity.LoginActivity;
 import swap.go.george.mina.goswap.ui.activities.myAdsActivity.MyAdsActivity;
+import swap.go.george.mina.goswap.ui.activities.settingsActivity.SettingsActivity;
 import swap.go.george.mina.goswap.ui.activities.signupActivity.SignUpActivity;
 import swap.go.george.mina.goswap.ui.fragments.chatFragment.ChatFragment;
 import swap.go.george.mina.goswap.ui.fragments.favoritesFragment.FavoritesFragment;
 import swap.go.george.mina.goswap.ui.fragments.homeFragment.HomeFragment;
 import swap.go.george.mina.goswap.utils.CommonUtils;
 import swap.go.george.mina.goswap.utils.CurrentLocation;
+import swap.go.george.mina.goswap.utils.MessagesService;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
@@ -92,7 +94,7 @@ public class HomeActivity extends AppCompatActivity
         };
         fragmentManager = getSupportFragmentManager();
         locationPref = getSharedPreferences("location", MODE_PRIVATE);
-        userPref = getSharedPreferences("user", MODE_PRIVATE);
+
         userEditor = getSharedPreferences("user", MODE_PRIVATE).edit();
         init();
 
@@ -101,6 +103,8 @@ public class HomeActivity extends AppCompatActivity
         appDB = Room.databaseBuilder(getApplicationContext(),AppDB.class,"itemsDB")
                 .allowMainThreadQueries()
                 .build();
+
+        startService(new Intent(this, MessagesService.class));
     }
 
     @Override
@@ -124,6 +128,7 @@ public class HomeActivity extends AppCompatActivity
                 toolbarTitle.setText("Whole Country");
         }
 
+        userPref = getSharedPreferences("user", MODE_PRIVATE);
         if(userPref.getString("name",null)!=null){
             loginAndSignUpLayout.setVisibility(View.GONE);
             headerUserName.setVisibility(View.VISIBLE);
@@ -134,8 +139,7 @@ public class HomeActivity extends AppCompatActivity
                                 .error(R.drawable.camera_error))
                         .load("https://graph.facebook.com/" +userPref.getString("fbId",null)
                                 + "/picture?type=large")
-                        .into(profileImage);}
-            else{
+                        .into(profileImage);} else{
 
                 Glide.with(this)
                         .setDefaultRequestOptions(new RequestOptions()
@@ -145,6 +149,9 @@ public class HomeActivity extends AppCompatActivity
             }
             NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(true);
             NavigatinMenuItems.findItem(R.id.drawer_navi_my_ads).setVisible(true);
+            NavigatinMenuItems.findItem(R.id.drawer_navi_sett).setVisible(true);
+        } else {
+            logOut();
         }
     }
 
@@ -193,6 +200,7 @@ public class HomeActivity extends AppCompatActivity
         NavigatinMenuItems = navigationView.getMenu();
         NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(false);
         NavigatinMenuItems.findItem(R.id.drawer_navi_my_ads).setVisible(false);
+        NavigatinMenuItems.findItem(R.id.drawer_navi_sett).setVisible(false);
         loginBtn.setOnClickListener(this);
         signUpBtn.setOnClickListener(this);
 
@@ -236,7 +244,6 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -275,6 +282,9 @@ public class HomeActivity extends AppCompatActivity
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(this, R.string.msg_email_not_installed, Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.drawer_navi_sett:
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
             default:
                 Toast.makeText(this,"df",Toast.LENGTH_SHORT).show();
@@ -332,6 +342,7 @@ public class HomeActivity extends AppCompatActivity
         profileImage.setImageResource(R.drawable.ic_login);
         NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(false);
         NavigatinMenuItems.findItem(R.id.drawer_navi_my_ads).setVisible(false);
+        NavigatinMenuItems.findItem(R.id.drawer_navi_sett).setVisible(false);
     }
 
     public void updateLocation(){

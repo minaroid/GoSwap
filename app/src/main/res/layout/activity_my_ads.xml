@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorDarkBackground"
     tools:context=".ui.activities.myAdsActivity.MyAdsActivity">
 
-    <include layout="@layout/toolbar_normal"/>
-
+    <include
+        android:id="@+id/tool"
+        layout="@layout/toolbar_normal" />
 
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/tool"
         android:id="@+id/rv_my_ads"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="3dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-</android.support.design.widget.CoordinatorLayout>
+    <TextView
+        android:id="@+id/tv_list_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/nunito_sans_light_italic"
+        android:gravity="center"
+        android:text="Your Ads list is empty"
+        android:textColor="@color/gray"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+</RelativeLayout>

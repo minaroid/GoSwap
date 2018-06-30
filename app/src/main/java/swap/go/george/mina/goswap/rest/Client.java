@@ -54,4 +54,7 @@ public interface Client {
 
     @GET("delete_item/{item_id}/")
     Call<String> deleteItem(@Path("item_id") String id);
+
+    @GET("delete_account/{user_id}/")
+    Call<String> deleteAccount(@Path("user_id") String userId);
 }

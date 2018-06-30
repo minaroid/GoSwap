@@ -3,7 +3,7 @@
     <string name="bt_navi_home">Home</string>
     <string name="bt_navi_favo">Favorites</string>
     <string name="bt_navi_msg">Messages</string>
-    <string name="bt_navi_sett">Settings</string>
+    <string name="bt_navi_sett">Delete Account</string>
     <string name="bt_navi_support">Support</string>
     <string name="bt_navi_swap">Swap your items</string>
     <string name="bt_navi_ads">My Ads</string>
@@ -63,4 +63,7 @@
     <string name="btn_sawp">Swap your Item</string>
     <string name="msg_must_login">you must login first</string>
     <string name="btn_chat_now">CHAT NOW</string>
+    <string name="warn_delete_account">You will lose all your Ads, Favorites and Messages after deleting your Account</string>
+    <string name="btn_delete_account">Delete Account</string>
+    <string name="warn_delete_confirm">Are you sure you want delete your account !?</string>
 </resources>

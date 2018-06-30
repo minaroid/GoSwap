@@ -7,7 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -19,10 +20,12 @@ import swap.go.george.mina.goswap.ui.activities.myItemActivity.MyItemActivity;
 import swap.go.george.mina.goswap.ui.adapters.HomeItemsAdapter;
 
 public class MyAdsActivity extends AppCompatActivity implements MyAdsActivityMVP.View{
-   @BindView(R.id.rv_my_ads)
+    @BindView(R.id.rv_my_ads)
     RecyclerView recyclerView;
-   @BindView(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.tv_list_empty)
+    TextView listEmpty;
     private String id;
     private MyAdsActivityMVP.Presenter presenter;
     private HomeItemsAdapter itemsAdapter;
@@ -56,7 +59,6 @@ public class MyAdsActivity extends AppCompatActivity implements MyAdsActivityMVP
 
         if (deletedPref.getBoolean("isDeleted", false)) {
             presenter.loadAds(id);
-            Log.d("efqef", "fdqwdf");
             deletedPrefEditor.putBoolean("isDeleted", false);
             deletedPrefEditor.commit();
             }
@@ -71,6 +73,11 @@ public class MyAdsActivity extends AppCompatActivity implements MyAdsActivityMVP
 
     @Override
     public void notifyAdapter(ArrayList<Item> items) {
+        if (items.size() == 0) {
+            listEmpty.setVisibility(View.VISIBLE);
+        } else {
+            listEmpty.setVisibility(View.GONE);
+        }
         itemsAdapter.swapData(items);
     }
 }

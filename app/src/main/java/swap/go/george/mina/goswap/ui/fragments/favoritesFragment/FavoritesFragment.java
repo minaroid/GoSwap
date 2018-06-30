@@ -6,11 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,8 @@ public class FavoritesFragment extends Fragment {
 
     @BindView(R.id.rv_favo_list)
     RecyclerView  recyclerView;
-
+    @BindView(R.id.tv_list_empty)
+    TextView emptyList;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,6 +47,12 @@ public class FavoritesFragment extends Fragment {
     public void onResume() {
         super.onResume();
         List<Item> list = HomeActivity.appDB.itemDao().getItems();
+
+        if (list.size() == 0) {
+            emptyList.setVisibility(View.VISIBLE);
+        } else {
+            emptyList.setVisibility(View.GONE);
+        }
         recyclerView.setAdapter(new HomeItemsAdapter(new ArrayList<Item>(list),getContext()));
     }
 }

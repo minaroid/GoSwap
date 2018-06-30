@@ -32,7 +32,7 @@
 
         <activity
             android:name=".ui.activities.homeActivity.HomeActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.activities.listActivity.ListActivity"
             android:parentActivityName=".ui.activities.homeActivity.HomeActivity" />
@@ -100,6 +100,11 @@
         <activity
             android:name=".ui.activities.userAdsActivity.UserAdsActivity"
             android:parentActivityName=".ui.activities.itemActivity.ItemActivity" />
+        <activity
+            android:name=".ui.activities.settingsActivity.SettingsActivity"
+            android:parentActivityName=".ui.activities.homeActivity.HomeActivity" />
+
+        <service android:name=".utils.MessagesService" />
 
     </application>
 
