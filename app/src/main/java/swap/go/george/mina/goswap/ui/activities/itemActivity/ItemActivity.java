@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ import retrofit2.Response;
 import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.rest.API;
 import swap.go.george.mina.goswap.rest.apiModel.Item;
+import swap.go.george.mina.goswap.ui.activities.conversationActivity.ConversationActivity;
 import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivity;
 import swap.go.george.mina.goswap.ui.activities.mapActivity.MapActivity;
 import swap.go.george.mina.goswap.ui.activities.userAdsActivity.UserAdsActivity;
@@ -70,6 +72,8 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     ImageView favImage;
     @BindView(R.id.item_layout)
     CoordinatorLayout itemLayout;
+    @BindView(R.id.btn_chat)
+    Button btnChat;
 
     private Item item;
     private ImagePagerAdapter pagerAdapter;
@@ -87,8 +91,6 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         userPref = getSharedPreferences("user", MODE_PRIVATE);
 
         init();
-
-
     }
 
     void init(){
@@ -112,6 +114,10 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         AdView adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
+
+        if (userPref.getString("id", null).equals(String.valueOf(item.getAuthId()))) {
+            btnChat.setVisibility(View.GONE);
+        }
     }
 
 
@@ -124,7 +130,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @OnClick({R.id.callFab,R.id.smsFab,R.id.copyFab,R.id.createContactFab,R.id.tv_item_location
-            , R.id.report_layout, R.id.img_favorite, R.id.tv_user_ads})
+            , R.id.report_layout, R.id.img_favorite, R.id.tv_user_ads, R.id.btn_chat})
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -152,6 +158,16 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_user_ads:
                 userAds();
                 break;
+            case R.id.btn_chat:
+                Intent i = new Intent(this, ConversationActivity.class);
+                i.putExtra("senderId", userPref.getString("id", null));
+                i.putExtra("recieverId", String.valueOf(item.getAuthId()));
+                i.putExtra("senderName", userPref.getString("name", null));
+                i.putExtra("reciverName", item.getAuthName());
+                i.putExtra("itemId", String.valueOf(item.getItemId()));
+                i.putExtra("itemName", item.getItemTitle());
+
+                startActivity(i);
         }
     }
 

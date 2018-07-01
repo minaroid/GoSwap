@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "978138792802",
+    "firebase_url": "https://go-swap-1529772848699.firebaseio.com",
+    "project_id": "go-swap-1529772848699",
+    "storage_bucket": "go-swap-1529772848699.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978138792802:android:7c413e3d8975ee02",
+        "android_client_info": {
+          "package_name": "swap.go.george.mina.goswap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978138792802-q2fdmv7ttp8u8c34mluukeo9h566vfv8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy81BjTri2Uu7X5tXUVWe13MoUJI6XL1w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

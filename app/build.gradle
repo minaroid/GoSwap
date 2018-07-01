@@ -71,15 +71,27 @@ dependencies {
     // circleImage
     implementation 'de.hdodenhof:circleimageview:' + rootProject.librariesVersions.circleImage
 
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    // fb login
+    implementation 'com.facebook.android:facebook-android-sdk:4.34.0'
 
+    // filePicker
     implementation 'com.droidninja:filepicker:1.0.0'
 
-
+    // volley
     implementation 'com.android.volley:volley:1.0.0'
+
+    // indicatior for pager
     implementation 'me.relex:circleindicator:1.2.2@aar'
-    implementation 'com.google.android.gms:play-services-ads:15.0.0'
+
+    // GoogleAPIs
+    implementation 'com.google.android.gms:play-services-ads:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.google.android.gms:play-services-places:15.0.1'
     implementation 'com.akexorcist:googledirectionlibrary:1.0.5'
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.firebaseui:firebase-ui-database:0.4.0'
 }
+apply plugin: 'com.google.gms.google-services'

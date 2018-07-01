@@ -326,7 +326,7 @@
     <include layout="@layout/floating_action_menu_item"/>
 
      <Button
-
+         android:id="@+id/btn_chat"
          android:layout_width="match_parent"
          android:layout_height="50dp"
          android:layout_marginLeft="3dp"
