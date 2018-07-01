@@ -33,6 +33,8 @@ public class ConversationActivity extends AppCompatActivity implements View.OnCl
     ListView listView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.empty_view)
+    TextView emptyView;
 
     private FirebaseListAdapter<ChatMessage> adapter;
     private String senderId, recieverId, senderName, reciverName, itemId, itemName;
@@ -93,6 +95,12 @@ public class ConversationActivity extends AppCompatActivity implements View.OnCl
                 listView.smoothScrollToPosition(listView.getCount() - 1);
             }
         });
+        if (adapter.getCount() == 0) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+        }
+        listView.setEmptyView(emptyView);
         listView.setAdapter(adapter);
     }
 

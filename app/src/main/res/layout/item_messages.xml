@@ -18,7 +18,7 @@
             android:layout_marginTop="4dp"
             android:fontFamily="@font/montserrat"
             android:text="recieverName"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/red"
             android:textStyle="bold" />
 
         <TextView

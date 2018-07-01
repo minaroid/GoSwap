@@ -115,8 +115,10 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
-        if (userPref.getString("id", null).equals(String.valueOf(item.getAuthId()))) {
-            btnChat.setVisibility(View.GONE);
+        if (userPref.getString("id", null) != null) {
+            if (userPref.getString("id", null).equals(String.valueOf(item.getAuthId()))) {
+                btnChat.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -159,15 +161,19 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                 userAds();
                 break;
             case R.id.btn_chat:
-                Intent i = new Intent(this, ConversationActivity.class);
-                i.putExtra("senderId", userPref.getString("id", null));
-                i.putExtra("recieverId", String.valueOf(item.getAuthId()));
-                i.putExtra("senderName", userPref.getString("name", null));
-                i.putExtra("reciverName", item.getAuthName());
-                i.putExtra("itemId", String.valueOf(item.getItemId()));
-                i.putExtra("itemName", item.getItemTitle());
+                if (userPref.getString("id", null) != null) {
+                    Intent i = new Intent(this, ConversationActivity.class);
+                    i.putExtra("senderId", userPref.getString("id", null));
+                    i.putExtra("recieverId", String.valueOf(item.getAuthId()));
+                    i.putExtra("senderName", userPref.getString("name", null));
+                    i.putExtra("reciverName", item.getAuthName());
+                    i.putExtra("itemId", String.valueOf(item.getItemId()));
+                    i.putExtra("itemName", item.getItemTitle());
 
-                startActivity(i);
+                    startActivity(i);
+                } else {
+                    Snackbar.make(itemLayout, R.string.msg_no_connection, Snackbar.LENGTH_SHORT).show();
+                }
         }
     }
 

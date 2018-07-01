@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +33,10 @@ public class ChatFragment extends Fragment{
 
     @BindView(R.id.rv_chats)
     RecyclerView recyclerView;
+    @BindView(R.id.tv_chat_empty)
+    TextView emptyList;
+    @BindView(R.id.progress_chat_loading)
+    ProgressBar progressBar;
     String itemId;
     String itemName;
     String sender;
@@ -48,8 +55,10 @@ public class ChatFragment extends Fragment{
         View v = inflater.inflate(R.layout.fragment_chat, container, false);
         ButterKnife.bind(this, v);
 
-        userEditor = getActivity().getSharedPreferences("user", MODE_PRIVATE);
 
+        userEditor = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        if (userEditor.getString("id", null) != null) {
+            progressBar.setVisibility(View.VISIBLE);
         FirebaseDatabase.getInstance().getReference()
                 .child("private")
 
@@ -77,8 +86,14 @@ public class ChatFragment extends Fragment{
                                 }
                             }
                         }
+                        progressBar.setVisibility(View.GONE);
+                        if (messages.size() == 0) {
+                            emptyList.setVisibility(View.VISIBLE);
+                        } else {
+                            emptyList.setVisibility(View.GONE);
+                            recyclerView.setAdapter(new MessagesAdapter(getContext(), messages));
+                        }
 
-                        recyclerView.setAdapter(new MessagesAdapter(getContext(), messages));
                     }
 
                     @Override
@@ -86,6 +101,10 @@ public class ChatFragment extends Fragment{
 
                     }
                 });
+        } else {
+            Toast.makeText(getContext(), R.string.msg_must_login, Toast.LENGTH_SHORT).show();
+            emptyList.setVisibility(View.VISIBLE);
+        }
 
         return v;
     }
