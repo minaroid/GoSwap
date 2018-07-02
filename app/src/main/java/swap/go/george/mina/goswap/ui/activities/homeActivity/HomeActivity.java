@@ -143,7 +143,7 @@ public class HomeActivity extends AppCompatActivity
                 Glide.with(this)
                         .setDefaultRequestOptions(new RequestOptions()
                                 .error(R.drawable.camera_error))
-                        .load("http://192.168.1.4:5000" +userPref.getString("pic",null))
+                        .load("http://192.168.43.254:5000" + userPref.getString("pic", null))
                         .into(profileImage);
             }
             NavigatinMenuItems.findItem(R.id.drawer_navi_logout).setVisible(true);

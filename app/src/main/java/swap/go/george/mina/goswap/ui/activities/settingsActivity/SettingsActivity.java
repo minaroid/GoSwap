@@ -9,10 +9,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import swap.go.george.mina.goswap.R;
+import swap.go.george.mina.goswap.rest.API;
+import swap.go.george.mina.goswap.rest.apiModel.Category;
+import swap.go.george.mina.goswap.rest.apiModel.Item;
 import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivity;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener, SettingsActivityMVP.View {
@@ -72,7 +82,32 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         userPrefEditor.clear();
         userPrefEditor.commit();
         HomeActivity.appDB.itemDao().truncateTable();
-        progressBar.setVisibility(View.GONE);
-        finish();
+        Call<ArrayList<Category>> call = API.getItems().getAllItemsByUser(Integer.parseInt(userId));
+        call.enqueue(new Callback<ArrayList<Category>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response) {
+                ArrayList<Category> categories = response.body();
+                int x = 0;
+                for (Category c : categories) {
+
+                    for (Item i : c.getItems()) {
+                        FirebaseDatabase.getInstance().getReference()
+                                .child("private").child(String.valueOf(i.getItemId()))
+                                .getParent().removeValue();
+                    }
+
+                    x++;
+                    if (x == categories.size()) {
+                        progressBar.setVisibility(View.GONE);
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
+
+            }
+        });
     }
 }

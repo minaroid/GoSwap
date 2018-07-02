@@ -98,6 +98,7 @@ public class MyItemActivity extends AppCompatActivity implements View.OnClickLis
         adView.loadAd(adRequest);
 
     }
+
     @OnClick({R.id.tv_item_location,R.id.btn_delete})
     @Override
     public void onClick(View v) {

@@ -31,6 +31,7 @@ import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.models.HomeRecyclerItems;
 import swap.go.george.mina.goswap.rest.apiModel.Category;
 import swap.go.george.mina.goswap.ui.activities.addItemActivity.AddItemActivity;
+import swap.go.george.mina.goswap.ui.activities.homeActivity.HomeActivityMVP;
 import swap.go.george.mina.goswap.ui.adapters.HomeAdapter;
 import swap.go.george.mina.goswap.utils.CommonUtils;
 
@@ -60,6 +61,7 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
     private ArrayList<String> categoriesForSpinner = new ArrayList<>();
     private ArrayList<HomeRecyclerItems> loadedItems = new ArrayList<>() ;
     private CommonUtils utils = new CommonUtils();
+    private HomeActivityMVP.View activityView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
         prefEditor = pref.edit();
         userPref = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         adapter = new HomeAdapter(getActivity());
+        activityView = (HomeActivityMVP.View) getContext();
     }
 
     @Nullable
@@ -122,7 +125,8 @@ public class HomeFragment extends Fragment implements HomeFragmentMVP.View
         switch (msg){
 
             case 0:
-                Toast.makeText(getContext(), R.string.msg_must_login,Toast.LENGTH_SHORT).show();
+                activityView.showMessage(getString(R.string.msg_must_login));
+//                Toast.makeText(getContext(), R.string.msg_must_login,Toast.LENGTH_SHORT).show();
                 break;
         }
     }

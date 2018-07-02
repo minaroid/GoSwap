@@ -172,7 +172,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
 
                     startActivity(i);
                 } else {
-                    Snackbar.make(itemLayout, R.string.msg_no_connection, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(itemLayout, R.string.msg_must_login, Snackbar.LENGTH_SHORT).show();
                 }
         }
     }
