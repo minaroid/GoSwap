@@ -70,7 +70,7 @@ public class HomeItemsAdapter extends RecyclerView.Adapter<HomeItemsAdapter.MyVi
             Glide.with(mContext)
                     .setDefaultRequestOptions(new RequestOptions()
                     .error(R.drawable.camera_error))
-                .load(baseImageUrl+item.getItemPics().get(0))
+                    .load(mContext.getString(R.string.base_url) + item.getItemPics().get(0))
                 .into(holder.image);
         }
                 catch(Exception e){

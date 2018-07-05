@@ -169,6 +169,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                     i.putExtra("reciverName", item.getAuthName());
                     i.putExtra("itemId", String.valueOf(item.getItemId()));
                     i.putExtra("itemName", item.getItemTitle());
+                    i.putExtra("itemPic", item.getItemPics().get(0));
 
                     startActivity(i);
                 } else {

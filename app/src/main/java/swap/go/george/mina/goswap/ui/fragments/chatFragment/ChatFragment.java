@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +38,7 @@ public class ChatFragment extends Fragment{
     ProgressBar progressBar;
     String itemId;
     String itemName;
+    String itemPic;
     String sender;
     String reciever;
     String senderName;
@@ -77,10 +77,12 @@ public class ChatFragment extends Fragment{
                                         for (DataSnapshot snapshot2 : snapshot.child("itemName").getChildren()) {
                                             itemName = snapshot2.getValue().toString();
                                         }
+                                        for (DataSnapshot snapshot2 : snapshot.child("itemPic").getChildren()) {
+                                            itemPic = snapshot2.getValue().toString();
+                                        }
                                         messages.add(new ChatFragmentMessages(userEditor.getString("id", null)
                                                 , reciever, userEditor.getString("name", null)
-                                                , reciverName, itemId, itemName));
-                                        Log.d("dddddcdc", reciverName);
+                                                , reciverName, itemId, itemName, itemPic));
                                         break;
                                     }
                                 }

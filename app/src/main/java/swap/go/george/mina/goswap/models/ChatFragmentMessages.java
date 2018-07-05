@@ -8,14 +8,25 @@ public class ChatFragmentMessages {
     private String reciverName;
     private String itemId;
     private String itemName;
+    private String itemPic;
 
-    public ChatFragmentMessages(String senderId, String reciverId, String senderName, String reciverName, String itemId, String itemName) {
+    public ChatFragmentMessages(String senderId, String reciverId,
+                                String senderName, String reciverName, String itemId, String itemName, String itemPic) {
         this.senderId = senderId;
         this.reciverId = reciverId;
         this.senderName = senderName;
         this.reciverName = reciverName;
         this.itemId = itemId;
         this.itemName = itemName;
+        this.itemPic = itemPic;
+    }
+
+    public String getItemPic() {
+        return itemPic;
+    }
+
+    public void setItemPic(String itemPic) {
+        this.itemPic = itemPic;
     }
 
     public String getSenderName() {

@@ -19,6 +19,7 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.rest.API;
 import swap.go.george.mina.goswap.rest.VolleyMultipartRequest;
 import swap.go.george.mina.goswap.rest.VolleySingleton;
@@ -68,7 +69,7 @@ public class AddItemActivityPresenter implements AddItemActivityMVP.Presenter{
         for ( Bitmap b : bitmaps){
 
             final Bitmap  bb= scaleDown(b,500,true);
-            String url = "http://192.168.43.254:5000/upladItemImages";
+            String url = context.getString(R.string.base_url) + "/upladItemImages";
             VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
                     new com.android.volley.Response.Listener<NetworkResponse>() {
                         @Override

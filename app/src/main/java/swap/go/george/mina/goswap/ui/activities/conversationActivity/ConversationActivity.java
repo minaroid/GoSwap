@@ -37,7 +37,8 @@ public class ConversationActivity extends AppCompatActivity implements View.OnCl
     TextView emptyView;
 
     private FirebaseListAdapter<ChatMessage> adapter;
-    private String senderId, recieverId, senderName, reciverName, itemId, itemName;
+    private String senderId, recieverId,
+            senderName, reciverName, itemId, itemName, itemPic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +52,12 @@ public class ConversationActivity extends AppCompatActivity implements View.OnCl
         reciverName = getIntent().getStringExtra("reciverName");
         itemId = getIntent().getStringExtra("itemId");
         itemName = getIntent().getStringExtra("itemName");
+        if (getIntent().getStringExtra("itemPic") != null) {
+            itemPic = getIntent().getStringExtra("itemPic");
+        }
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Conversation");
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         displayChatMessages();
@@ -129,6 +134,8 @@ public class ConversationActivity extends AppCompatActivity implements View.OnCl
                                 if (!dataSnapshot.hasChild("itemName")) {
                                     FirebaseDatabase.getInstance().getReference().child("private").child(itemId)
                                             .child("itemName").push().setValue(itemName);
+                                    FirebaseDatabase.getInstance().getReference().child("private").child(itemId)
+                                            .child("itemPic").push().setValue(itemPic);
                                 }
                             }
 

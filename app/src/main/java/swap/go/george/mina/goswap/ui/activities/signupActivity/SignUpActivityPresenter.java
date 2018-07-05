@@ -16,6 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.rest.VolleyMultipartRequest;
 import swap.go.george.mina.goswap.rest.VolleySingleton;
 
@@ -38,7 +39,7 @@ public class SignUpActivityPresenter implements SignUpActivityMVP.Presenter{
 
     @Override
     public void uploadData(final Bitmap bitmap, final String name, final String email, final String pass, final String phone) {
-        String url = "http://192.168.43.254:5000/signup_data";
+        String url = context.getString(R.string.base_url) + "/signup_data";
         view.showLoading();
         final Bitmap  bm = scaleDown(bitmap,500,true);
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,

@@ -51,10 +51,10 @@ public class ImagePagerAdapter extends PagerAdapter {
         }
 
         ImageView im = v.findViewById(R.id.pager_image);
-        String photoUrl = "http://192.168.43.254:5000"
-                + images.get(position);
+//        String photoUrl = "http://192.168.43.254:5000"
+//                + images.get(position);
         Glide.with(context)
-                .load(photoUrl)
+                .load(context.getString(R.string.base_url) + images.get(position))
                 .into(im);
         im.setOnClickListener(new View.OnClickListener() {
             @Override

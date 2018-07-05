@@ -9,10 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import swap.go.george.mina.goswap.R;
 import swap.go.george.mina.goswap.models.ChatFragmentMessages;
 import swap.go.george.mina.goswap.ui.activities.conversationActivity.ConversationActivity;
@@ -38,6 +42,15 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.itemName.setText(messages.get(position).getItemName());
         holder.reciverName.setText(messages.get(position).getReciverName());
+        try {
+            Glide.with(context)
+                    .setDefaultRequestOptions(new RequestOptions()
+                            .error(R.drawable.camera_error))
+                    .load(context.getString(R.string.base_url) + messages.get(position).getItemPic())
+                    .into(holder.imageView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(this);
     }
@@ -65,6 +78,8 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
         TextView itemName;
         @BindView(R.id.tv_reciever_name)
         TextView reciverName;
+        @BindView(R.id.msg_image)
+        CircleImageView imageView;
 
         private MyViewHolder(View v) {
             super(v);
